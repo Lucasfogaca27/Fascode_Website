@@ -1,0 +1,180 @@
+{
+  "colors": {
+    "brand": {
+      "purple": {
+        "900": { "hsl": "278 65% 25%", "hex": "#3B1563" },
+        "700": { "hsl": "278 61% 41%", "hex": "#6B2AA8" },
+        "500": { "hsl": "278 59% 53%", "hex": "#8F46C9" },
+        "300": { "hsl": "278 60% 70%", "hex": "#B888E1" }
+      },
+      "blue": {
+        "500": { "hsl": "199 87% 50%", "hex": "#0FA9E6" },
+        "400": { "hsl": "199 85% 59%", "hex": "#3FB0F0" }
+      },
+      "cyan": {
+        "400": { "hsl": "189 90% 60%", "hex": "#33D8F5" }
+      },
+      "black": {
+        "900": { "hsl": "240 10% 5%", "hex": "#0B0B0D" },
+        "800": { "hsl": "240 8% 10%", "hex": "#17171A" },
+        "700": { "hsl": "240 6% 15%", "hex": "#24242A" }
+      },
+      "gray": {
+        "600": { "hsl": "240 5% 40%", "hex": "#63636B" },
+        "400": { "hsl": "240 5% 60%", "hex": "#96969E" },
+        "200": { "hsl": "240 5% 85%", "hex": "#D6D6DA" }
+      }
+    },
+    "semantic": {
+      "dark": {
+        "background": { "hsl": "240 10% 5%", "hex": "#0B0B0D" },
+        "foreground": { "hsl": "0 0% 98%", "hex": "#FAFAFA" },
+        "card": { "hsl": "240 8% 10%", "hex": "#17171A" },
+        "primary": { "hsl": "278 59% 53%", "hex": "#8F46C9" },
+        "secondary": { "hsl": "199 85% 59%", "hex": "#3FB0F0" },
+        "muted": { "hsl": "240 6% 15%", "hex": "#24242A" },
+        "border": { "hsl": "240 6% 15%", "hex": "#24242A" }
+      },
+      "light": {
+        "background": { "hsl": "0 0% 100%", "hex": "#FFFFFF" },
+        "foreground": { "hsl": "240 10% 5%", "hex": "#0B0B0D" },
+        "card": { "hsl": "0 0% 100%", "hex": "#FFFFFF" },
+        "primary": { "hsl": "278 61% 41%", "hex": "#6B2AA8" },
+        "secondary": { "hsl": "199 85% 59%", "hex": "#3FB0F0" },
+        "muted": { "hsl": "240 5% 95%", "hex": "#F1F1F3" },
+        "border": { "hsl": "240 5% 85%", "hex": "#D6D6DA" }
+      }
+    }
+  },
+  "gradients": {
+    "primary": "linear-gradient(135deg, hsl(278 61% 41%) 0%, hsl(199 85% 59%) 100%)",
+    "hero": "linear-gradient(135deg, hsl(278 65% 25%) 0%, hsl(278 61% 41%) 50%, hsl(199 87% 50%) 100%)",
+    "card": "linear-gradient(145deg, hsl(278 61% 41% / 0.1) 0%, hsl(199 85% 59% / 0.05) 100%)",
+    "button": {
+      "primary": "linear-gradient(to right, hsl(278 59% 53%), hsl(199 85% 59%))",
+      "hover": "linear-gradient(to right, hsl(278 65% 45%), hsl(199 87% 52%))"
+    }
+  },
+  "shadows": {
+    "glow": "0 0 40px hsl(278 59% 53% / 0.3)",
+    "card": "0 10px 30px -10px hsl(278 61% 41% / 0.2)",
+    "elevated": "0 20px 50px -15px hsl(278 61% 41% / 0.4)",
+    "button": "0 4px 14px 0 hsl(278 59% 53% / 0.39)"
+  },
+  "spacing": {
+    "container": {
+      "maxWidth": "1280px",
+      "padding": {
+        "mobile": "1rem",
+        "tablet": "1.5rem",
+        "desktop": "2rem"
+      }
+    },
+    "section": {
+      "mobile": "4rem",
+      "tablet": "6rem",
+      "desktop": "8rem"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "sans": "'Inter', system-ui, sans-serif",
+      "display": "'Inter', system-ui, sans-serif"
+    },
+    "fontSize": {
+      "display": "clamp(3rem, 8vw, 6rem)",
+      "hero": "clamp(2.5rem, 6vw, 4.5rem)",
+      "section": "clamp(2rem, 4vw, 3rem)",
+      "xl": "1.25rem",
+      "lg": "1.125rem",
+      "base": "1rem",
+      "sm": "0.875rem",
+      "xs": "0.75rem"
+    },
+    "fontWeight": {
+      "light": 300,
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700,
+      "extrabold": 800,
+      "black": 900
+    },
+    "lineHeight": {
+      "tight": 1.1,
+      "normal": 1.5,
+      "relaxed": 1.75
+    }
+  },
+  "borderRadius": {
+    "sm": "0.5rem",
+    "md": "0.625rem",
+    "lg": "0.75rem",
+    "xl": "1rem",
+    "2xl": "1.5rem",
+    "full": "9999px"
+  },
+  "transitions": {
+    "smooth": "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+    "bounce": "all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+    "fast": "all 0.15s ease-in-out",
+    "slow": "all 0.5s ease-in-out"
+  },
+  "animations": {
+    "fadeInUp": {
+      "duration": "0.6s",
+      "timingFunction": "ease-out",
+      "keyframes": "fade-in-up"
+    },
+    "fadeIn": {
+      "duration": "0.4s",
+      "timingFunction": "ease-out",
+      "keyframes": "fade-in"
+    },
+    "scaleIn": {
+      "duration": "0.5s",
+      "timingFunction": "ease-out",
+      "keyframes": "scale-in"
+    },
+    "slideInRight": {
+      "duration": "0.6s",
+      "timingFunction": "ease-out",
+      "keyframes": "slide-in-right"
+    },
+    "float": {
+      "duration": "3s",
+      "timingFunction": "ease-in-out",
+      "iterationCount": "infinite",
+      "keyframes": "float"
+    },
+    "gradientShift": {
+      "duration": "8s",
+      "timingFunction": "ease",
+      "iterationCount": "infinite",
+      "keyframes": "gradient-shift"
+    }
+  },
+  "breakpoints": {
+    "sm": "640px",
+    "md": "768px",
+    "lg": "1024px",
+    "xl": "1280px",
+    "2xl": "1536px"
+  },
+  "effects": {
+    "glassmorphism": {
+      "background": "hsl(var(--card) / 0.4)",
+      "backdropFilter": "blur(12px)",
+      "border": "1px solid hsl(var(--border) / 0.5)"
+    },
+    "glassmorphismStrong": {
+      "background": "hsl(var(--card) / 0.6)",
+      "backdropFilter": "blur(24px)",
+      "border": "1px solid hsl(var(--border) / 0.7)"
+    },
+    "dotPattern": {
+      "backgroundImage": "radial-gradient(circle, hsl(278 59% 53% / 0.15) 1px, transparent 1px)",
+      "backgroundSize": "20px 20px"
+    }
+  }
+}

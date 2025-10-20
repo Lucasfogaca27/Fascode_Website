@@ -47,16 +47,28 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+        purple: {
+          900: "hsl(var(--purple-900))",
+          700: "hsl(var(--purple-700))",
+          500: "hsl(var(--purple-500))",
+          300: "hsl(var(--purple-300))",
         },
+        blue: {
+          500: "hsl(var(--blue-500))",
+          400: "hsl(var(--blue-400))",
+        },
+        cyan: {
+          400: "hsl(var(--cyan-400))",
+        },
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Inter', 'system-ui', 'sans-serif'],
+      },
+      fontSize: {
+        'display': 'clamp(3rem, 8vw, 6rem)',
+        'hero': 'clamp(2.5rem, 6vw, 4.5rem)',
+        'section': 'clamp(2rem, 4vw, 3rem)',
       },
       borderRadius: {
         lg: "var(--radius)",
