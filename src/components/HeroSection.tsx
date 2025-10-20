@@ -23,20 +23,13 @@ const HeroSection = () => {
       {/* Content */}
       <div className="container-custom relative z-10 text-center">
         <div className="max-w-5xl mx-auto space-y-8 animate-fade-in-up">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full text-sm font-medium animate-scale-in">
-            <Sparkles className="w-4 h-4 text-blue-400" />
-            <span>Desenvolvimento Web & Software de Alta Performance</span>
-          </div>
-
           {/* Headline */}
-          <h1 className="text-display font-bold leading-tight delay-100">
-            Fazemos o Site e o Software que{" "}
-            <span className="gradient-text">Vende e Escala</span> seu Negócio
+          <h1 className="text-display font-bold leading-tight">
+            Bem-vindo à <span className="gradient-text">FASCODE</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-foreground/90 max-w-3xl mx-auto leading-relaxed delay-200">
+          <p className="text-xl md:text-2xl text-foreground/90 max-w-3xl mx-auto leading-relaxed">
             Transformamos sua visão em experiências digitais poderosas. 
             Da estratégia ao deploy, criamos soluções que convertem visitantes em clientes.
           </p>
@@ -59,29 +52,6 @@ const HeroSection = () => {
             >
               Ver Portfólio
             </Button>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-16 delay-400">
-            {[
-              { value: "50+", label: "Projetos Entregues" },
-              { value: "98%", label: "Satisfação" },
-              { value: "24h", label: "Resposta" },
-              { value: "100%", label: "Dedicação" },
-            ].map((stat, index) => (
-              <div
-                key={index}
-                className="text-center animate-fade-in"
-                style={{ animationDelay: `${0.5 + index * 0.1}s` }}
-              >
-                <div className="text-4xl md:text-5xl font-bold gradient-text mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-sm md:text-base text-foreground/70">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>
