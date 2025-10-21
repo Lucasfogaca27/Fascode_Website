@@ -14,7 +14,7 @@ import StickyBar from "@/components/StickyBar";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen animate-fade-in-blur">
       <Header />
       <main>
         <HeroSection />
