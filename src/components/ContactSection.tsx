@@ -57,13 +57,13 @@ const ContactSection = () => {
     {
       icon: Phone,
       label: "Telefone",
-      value: "+55 (48) 99999-9999",
-      link: "tel:+5548999999999",
+      value: "+55 (54) 99626-7250",
+      link: "tel:+5554996267250",
     },
     {
       icon: MapPin,
       label: "Endereço",
-      value: "Florianópolis, SC - Brasil",
+      value: "Caxias do Sul, RS - Brasil",
       link: null,
     },
   ];

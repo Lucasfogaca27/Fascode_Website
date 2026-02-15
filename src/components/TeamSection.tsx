@@ -4,23 +4,23 @@ const TeamSection = () => {
   const team = [
     {
       name: "Victor Seifert",
-      role: "Founder / Product & Frontend",
+      role: "Founder / Innovation Manager",
       isFounder: true,
-      bio: "Especialista em criar experiências de usuário excepcionais e arquiteturas frontend escaláveis.",
+      bio: "Inovação através do design. Especialista em criar experiências de usuário excepcionais e arquiteturas frontend que escalam com o amanhã.",
       avatar: "VS",
     },
     {
       name: "Lucas Fogaça",
-      role: "Founder / UX & Design",
+      role: "Founder / Technology Manager",
       isFounder: true,
-      bio: "Designer visionário com foco em interfaces que convertem e encantam usuários.",
+      bio: "Tecnologia de alta performance. Arquiteto de soluções backend robustas e infraestruturas preparadas para o crescimento.",
       avatar: "LF",
     },
     {
       name: "Felipe Flor",
-      role: "Founder / Backend & DevOps",
+      role: "Founder / Commercial Manager",
       isFounder: true,
-      bio: "Arquiteto de soluções backend robustas e infraestrutura de alta performance.",
+      bio: "Conexão e conversão. Designer visionário focado em interfaces que encantam o usuário e geram resultados reais para o negócio.",
       avatar: "FF",
     },
     {
