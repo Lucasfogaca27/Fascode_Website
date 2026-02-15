@@ -320,4 +320,15 @@
   .delay-400 {
     animation-delay: 0.4s;
   }
+
+  /* Remove o selo do Lovable/GPT Engineer */
+.gpt-engineer-badge, 
+#lovable-badge,
+[class*="lovable"],
+[id*="lovable"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
 }
