@@ -87,7 +87,7 @@ Testado e otimizado para:
 ## 🤝 Equipe FASCODE
 
 - **Victor Seifert** - Founder / Product & Frontend
-- **Lucas Fogaça** - Founder / UX & Design
+- **Lucas Fogaça** - Founder / Technology Manager
 - **Felipe Flor** - Founder / Backend & DevOps
 - **Lucas Silva** - Senior Developer
 
