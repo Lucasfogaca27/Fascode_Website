@@ -26,44 +26,49 @@ const ContactSection = () => {
     message: "",
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
+ 
 
-    try {
-      // Envio Real via EmailJS
-      await emailjs.sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        formRef.current!,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      );
+// 2. Substitua sua função handleSubmit por esta:
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsLoading(true);
 
-      toast({
-        title: "Mensagem enviada com sucesso!",
-        description: "Entraremos em contato em até 24h. Obrigado!",
-      });
+  try {
+    // Envio real para o EmailJS usando as variáveis da Vercel
+    const result = await emailjs.sendForm(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      formRef.current!,
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    );
 
-      // Limpa o formulário
-      setFormData({
-        from_name: "",
-        user_email: "",
-        user_phone: "",
-        project_type: "",
-        budget: "",
-        message: "",
-      });
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Erro ao enviar",
-        description: "Houve um problema técnico. Tente novamente mais tarde.",
-      });
-      console.error("Erro EmailJS:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    console.log("Resultado EmailJS:", result.text);
+
+    toast({
+      title: "Mensagem enviada com sucesso!",
+      description: "Entraremos em contato em até 24h. Obrigado!",
+    });
+
+    // Limpa os campos após o envio
+    setFormData({
+      from_name: "",
+      user_email: "",
+      user_phone: "",
+      project_type: "",
+      budget: "",
+      message: "",
+    });
+  } catch (error) {
+    console.error("Erro ao enviar e-mail:", error);
+    toast({
+      variant: "destructive",
+      title: "Erro no envio",
+      description: "Não conseguimos enviar sua mensagem. Tente novamente.",
+    });
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   // ... (mantenha o array contactInfo igual)
 
