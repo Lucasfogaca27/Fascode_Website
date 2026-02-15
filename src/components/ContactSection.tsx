@@ -30,6 +30,7 @@ const ContactSection = () => {
 
 // 2. Substitua sua função handleSubmit por esta:
 const handleSubmit = async (e: React.FormEvent) => {
+  console.log("Iniciando envio...", import.meta.env.VITE_EMAILJS_SERVICE_ID);
   e.preventDefault();
   setIsLoading(true);
 
