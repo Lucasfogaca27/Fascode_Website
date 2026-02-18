@@ -3,11 +3,13 @@ import { useState } from "react";
 
 const WhatsAppWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const phoneNumber = "5548999999999"; // Replace with actual WhatsApp number
+  const phoneNumber = "5554996267250"; // Replace with actual WhatsApp number
   const message = "Olá! Gostaria de solicitar um orçamento para meu projeto.";
 
   const handleWhatsAppClick = () => {
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      message
+    )}`;
     window.open(url, "_blank");
   };
 
@@ -45,9 +47,11 @@ const WhatsAppWidget = () => {
             {/* Message */}
             <div className="bg-muted/50 rounded-lg p-4 mb-4">
               <p className="text-sm text-foreground/90 leading-relaxed">
-                Olá! 👋 
-                <br /><br />
-                Como podemos ajudar você hoje? Clique abaixo para conversar no WhatsApp.
+                Olá! 👋
+                <br />
+                <br />
+                Como podemos ajudar você hoje? Clique abaixo para conversar no
+                WhatsApp.
               </p>
             </div>
 

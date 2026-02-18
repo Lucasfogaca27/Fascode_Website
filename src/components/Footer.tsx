@@ -57,10 +57,10 @@ const Footer = () => {
               <span className="text-2xl font-bold gradient-text">FASCODE</span>
             </div>
             <p className="text-muted-foreground leading-relaxed mb-6 max-w-sm">
-              Transformamos visões em experiências digitais poderosas. 
-              Sites e softwares que vendem e escalam seu negócio.
+              Transformamos visões em experiências digitais poderosas. Sites e
+              softwares que vendem e escalam seu negócio.
             </p>
-            
+
             {/* Social Links */}
             <div className="flex items-center gap-3">
               {socialLinks.map((social, index) => (
@@ -130,12 +130,10 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-border/50">
+      <div className="border-t border-border/50 mt-20">
         <div className="container-custom py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-            <p>
-              © {currentYear} FASCODE. Todos os direitos reservados.
-            </p>
+            <p>© {currentYear} FASCODE. Todos os direitos reservados.</p>
             <div className="flex items-center gap-6">
               <button
                 onClick={() => scrollToSection("#")}
