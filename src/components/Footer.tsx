@@ -9,6 +9,7 @@ const Footer = () => {
       { label: "Como Trabalhamos", href: "#process" },
       { label: "Equipe", href: "#team" },
       { label: "Portfólio", href: "#portfolio" },
+      { label: "Trabalhe Conosco", href: "https://ibb.co/6RxZtq9P" },
     ],
     services: [
       { label: "Sites Institucionais", href: "#services" },
@@ -79,8 +80,14 @@ const Footer = () => {
               {footerLinks.company.map((link, index) => (
                 <li key={index}>
                   <button
-                    onClick={() => scrollToSection(link.href)}
-                    className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                    onClick={() => {
+                      if (link.href.startsWith("http")) {
+                        window.open(link.href, "_blank"); // Abre o link externo em nova aba
+                      } else {
+                        scrollToSection(link.href); // Mantém o scroll suave para links internos
+                      }
+                    }}
+                    className="text-muted-foreground hover:text-foreground transition-colors text-sm text-left"
                   >
                     {link.label}
                   </button>
