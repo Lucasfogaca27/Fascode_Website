@@ -31,19 +31,15 @@ const Footer = () => {
     { icon: Mail, href: "mailto:contato@fascode.com.br", label: "Email" },
   ];
 
-  const scrollToSection = (href: string) => {
-    if (href.startsWith("#")) {
-      const element = document.getElementById(href.substring(1));
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    } else {
-      window.open(href, "_blank");
+  const scrollToSection = (id) => {
+    const element = document.querySelector(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   return (
-    <footer className="bg-muted/30 border-t border-border/50 relative overflow-hidden">
+    <footer className="bg-muted/30 border-t border-border/50 relative overflow-hidden z-[10]">
       {/* Main Footer */}
       <div className="container-custom py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
@@ -130,7 +126,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-border/50 mt-20">
+      <div className="border-t border-border/50 mt-10 pb-5">
         <div className="container-custom py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
             <p>© {currentYear} FASCODE. Todos os direitos reservados.</p>
@@ -153,7 +149,7 @@ const Footer = () => {
       </div>
 
       {/* Background decoration */}
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-500/5 rounded-full blur-3xl pointer-events-none"></div>
     </footer>
   );
 };

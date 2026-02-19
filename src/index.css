@@ -44,15 +44,28 @@
     --radius: 0.75rem;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--purple-700)) 0%, hsl(var(--blue-400)) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(var(--purple-900)) 0%, hsl(var(--purple-700)) 50%, hsl(var(--blue-500)) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(var(--purple-700) / 0.1) 0%, hsl(var(--blue-400) / 0.05) 100%);
-    
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(var(--purple-700)) 0%,
+      hsl(var(--blue-400)) 100%
+    );
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(var(--purple-900)) 0%,
+      hsl(var(--purple-700)) 50%,
+      hsl(var(--blue-500)) 100%
+    );
+    --gradient-card: linear-gradient(
+      145deg,
+      hsl(var(--purple-700) / 0.1) 0%,
+      hsl(var(--blue-400) / 0.05) 100%
+    );
+
     /* Shadows */
     --shadow-glow: 0 0 40px hsl(var(--purple-500) / 0.3);
     --shadow-card: 0 10px 30px -10px hsl(var(--purple-700) / 0.2);
     --shadow-elevated: 0 20px 50px -15px hsl(var(--purple-700) / 0.4);
-    
+
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -87,10 +100,15 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: 'cv11', 'ss01';
+    font-feature-settings: "cv11", "ss01";
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-bold tracking-tight;
   }
 
@@ -146,13 +164,18 @@
   }
 
   .sheen::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
     transition: left 0.5s;
   }
 
@@ -162,7 +185,11 @@
 
   /* Dot pattern background */
   .dot-pattern {
-    background-image: radial-gradient(circle, hsl(var(--purple-500) / 0.15) 1px, transparent 1px);
+    background-image: radial-gradient(
+      circle,
+      hsl(var(--purple-500) / 0.15) 1px,
+      transparent 1px
+    );
     background-size: 20px 20px;
   }
 
@@ -175,7 +202,7 @@
   }
 
   .btn-hero::before {
-    content: '';
+    content: "";
     @apply absolute inset-0 bg-white/20 translate-y-full transition-transform duration-300;
   }
 
@@ -208,7 +235,8 @@
 
   /* Custom animations */
   @keyframes gradient-shift {
-    0%, 100% {
+    0%,
+    100% {
       background-position: 0% 50%;
     }
     50% {
@@ -272,7 +300,8 @@
   }
 
   @keyframes float {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateY(0);
     }
     50% {
@@ -322,13 +351,13 @@
   }
 
   /* Remove o selo do Lovable/GPT Engineer */
-.gpt-engineer-badge, 
-#lovable-badge,
-[class*="lovable"],
-[id*="lovable"] {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
+  .gpt-engineer-badge,
+  #lovable-badge,
+  [class*="lovable"],
+  [id*="lovable"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
 }
