@@ -8,6 +8,11 @@ const TeamSection = () => {
       isFounder: true,
       bio: "Inovação através do design. Especialista em criar experiências de usuário excepcionais e arquiteturas frontend que escalam com o amanhã.",
       avatar: "VS",
+      social: {
+        linkedin: "https://www.linkedin.com/in/victor-matheus-seifert/",
+        github: "https://github.com/Mathzss",
+        email: "seifertvictor71@gmail.com",
+      },
     },
     {
       name: "Lucas Fogaça",
@@ -15,6 +20,11 @@ const TeamSection = () => {
       isFounder: true,
       bio: "Tecnologia de alta performance. Arquiteto de soluções backend robustas e infraestruturas preparadas para o crescimento.",
       avatar: "LF",
+      social: {
+        linkedin: "https://www.linkedin.com/in/lucas-foga%C3%A7a-de-aguiar/",
+        github: "https://github.com/Lucasfogaca27",
+        email: "f.lucasaguiar@hotmail.com",
+      },
     },
     {
       name: "Felipe Flor",
@@ -22,6 +32,11 @@ const TeamSection = () => {
       isFounder: true,
       bio: "Conexão e conversão. Designer visionário focado em interfaces que encantam o usuário e geram resultados reais para o negócio.",
       avatar: "FF",
+      social: {
+        linkedin: "https://www.linkedin.com/in/felipe-fl%C3%B4r-a5b338267/",
+        github: "https://github.com/FelipeMFlor",
+        email: "fm6848445@gmail.com",
+      },
     },
     {
       name: "Lucas Silva",
@@ -29,6 +44,11 @@ const TeamSection = () => {
       isFounder: false,
       bio: "Desenvolvedor full-stack sênior com expertise em soluções complexas e integradas.",
       avatar: "LS",
+      social: {
+        linkedin: "",
+        github: "https://github.com/sh-lucas",
+        email: "",
+      },
     },
   ];
 
@@ -59,7 +79,9 @@ const TeamSection = () => {
                 {member.isFounder && (
                   <div className="absolute top-4 right-4">
                     <div className="glass-strong px-3 py-1 rounded-full">
-                      <span className="text-xs font-semibold gradient-text">Founder</span>
+                      <span className="text-xs font-semibold gradient-text">
+                        Founder
+                      </span>
                     </div>
                   </div>
                 )}
@@ -89,15 +111,39 @@ const TeamSection = () => {
 
                 {/* Social Links */}
                 <div className="flex items-center justify-center gap-3">
-                  <button className="w-10 h-10 rounded-lg glass-strong hover:bg-purple-500 transition-colors flex items-center justify-center group/social">
-                    <Linkedin className="w-4 h-4 text-muted-foreground group-hover/social:text-white transition-colors" />
-                  </button>
-                  <button className="w-10 h-10 rounded-lg glass-strong hover:bg-purple-500 transition-colors flex items-center justify-center group/social">
-                    <Github className="w-4 h-4 text-muted-foreground group-hover/social:text-white transition-colors" />
-                  </button>
-                  <button className="w-10 h-10 rounded-lg glass-strong hover:bg-purple-500 transition-colors flex items-center justify-center group/social">
-                    <Mail className="w-4 h-4 text-muted-foreground group-hover/social:text-white transition-colors" />
-                  </button>
+                  {member.social?.linkedin && (
+                    <a
+                      href={member.social.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-lg glass-strong hover:bg-purple-500 transition-colors flex items-center justify-center"
+                      aria-label={`${member.name} LinkedIn`}
+                    >
+                      <Linkedin className="w-4 h-4 text-muted-foreground hover:text-white transition-colors" />
+                    </a>
+                  )}
+
+                  {member.social?.github && (
+                    <a
+                      href={member.social.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-lg glass-strong hover:bg-purple-500 transition-colors flex items-center justify-center"
+                      aria-label={`${member.name} GitHub`}
+                    >
+                      <Github className="w-4 h-4 text-muted-foreground hover:text-white transition-colors" />
+                    </a>
+                  )}
+
+                  {member.social?.email && (
+                    <a
+                      href={`mailto:${member.social.email}`}
+                      className="w-10 h-10 rounded-lg glass-strong hover:bg-purple-500 transition-colors flex items-center justify-center"
+                      aria-label={`Email para ${member.name}`}
+                    >
+                      <Mail className="w-4 h-4 text-muted-foreground hover:text-white transition-colors" />
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
@@ -109,7 +155,9 @@ const TeamSection = () => {
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div>
               <div className="text-3xl font-bold gradient-text mb-2">15+</div>
-              <p className="text-muted-foreground">Anos de Experiência Combinada</p>
+              <p className="text-muted-foreground">
+                Anos de Experiência Combinada
+              </p>
             </div>
             <div>
               <div className="text-3xl font-bold gradient-text mb-2">100%</div>
