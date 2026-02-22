@@ -1,5 +1,6 @@
 import { MessageCircle, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 const WhatsAppWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,12 +9,20 @@ const WhatsAppWidget = () => {
 
   const handleWhatsAppClick = () => {
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-      message
+      message,
     )}`;
     window.open(url, "_blank");
   };
 
-  return (
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  return createPortal(
     <>
       {/* Widget Button */}
       <button
@@ -65,7 +74,8 @@ const WhatsAppWidget = () => {
           </div>
         </div>
       )}
-    </>
+    </>,
+    document.body,
   );
 };
 

@@ -1,5 +1,8 @@
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+
+import { useState as useLocalState } from "react";
 
 const ThemeToggle = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
@@ -19,7 +22,14 @@ const ThemeToggle = () => {
     document.documentElement.classList.toggle("dark", newTheme === "dark");
   };
 
-  return (
+  // Render through portal so positioning is relative to viewport
+  const [mounted, setMounted] = useLocalState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
+
+  return createPortal(
     <button
       onClick={toggleTheme}
       className="fixed bottom-8 right-8 z-[999] w-14 h-14 rounded-full bg-gray-800 text-white hover:bg-gray-700 hover:scale-110 transition-all shadow-lg flex items-center justify-center group"
@@ -30,7 +40,8 @@ const ThemeToggle = () => {
       ) : (
         <Sun className="w-6 h-6 text-yellow-400 group-hover:text-yellow-500 transition-colors" />
       )}
-    </button>
+    </button>,
+    document.body,
   );
 };
 
