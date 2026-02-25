@@ -4,7 +4,7 @@ Site institucional e comercial desenvolvido com React, TypeScript, Tailwind CSS 
 
 ## 🚀 Demo
 
-[Ver site ao vivo](https://fascode-visionary-build.lovable.app/)
+[Ver site ao vivo](https://fascode.com.br/)
 
 ## ✨ Características
 
@@ -86,9 +86,9 @@ Testado e otimizado para:
 
 ## 🤝 Equipe FASCODE
 
-- **Victor Seifert** - Founder / Product & Frontend
-- **Lucas Fogaça** - Founder / UX & Design
-- **Felipe Flor** - Founder / Backend & DevOps
+- **Victor Seifert** - Founder / Innovation Manager
+- **Lucas Fogaça** - Founder / Technology Manager
+- **Felipe Flor** - Founder / Commercial Manager
 - **Lucas Silva** - Senior Developer
 
 ## 📄 Licença
@@ -98,9 +98,9 @@ Este projeto foi desenvolvido para a FASCODE.
 ## 📞 Contato
 
 - **Email:** contato@fascode.com.br
-- **WhatsApp:** +55 (54) 99162-4605
+- **WhatsApp:** +55 (54) 99626-7250
 - **Website:** [fascode.com.br]([https://fascode.com.br](https://fascode-visionary-build.lovable.app/))
 
 ---
 
-**Desenvolvido com ❤️ pela FASCODE**
+**FASCODE - Code your Future**
