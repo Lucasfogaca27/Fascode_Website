@@ -4,9 +4,24 @@ import { Button } from "@/components/ui/button";
 const PortfolioSection = () => {
   const projects = [
     {
+      title: "CoreVitta",
+      category: "WebApp B2B",
+      description:
+        "Sistema completo de gestão para escritórios médicos e controle de pacientes, com prontuário eletrônico, agenda inteligente e controle de acesso hierárquico.",
+      image: "heart-pulse",
+      tech: ["Java", "Spring Boot", "React", "PostgreSQL", "JWT"],
+      result: "Gestão completa de clínicas médicas",
+      metrics: {
+        records: "Prontuário eletrônico",
+        scheduling: "Agenda inteligente",
+        security: "Controle de acesso",
+      },
+    },
+    {
       title: "MóveisViva",
       category: "E-commerce",
-      description: "Migração completa de plataforma e otimização de checkout para loja online de móveis planejados.",
+      description:
+        "Migração completa de plataforma e otimização de checkout para loja online de móveis planejados.",
       image: "shopping-cart",
       tech: ["Next.js", "Stripe", "Headless CMS", "PostgreSQL"],
       result: "+35% na taxa de conversão",
@@ -15,7 +30,8 @@ const PortfolioSection = () => {
     {
       title: "AgendaPro",
       category: "WebApp B2B",
-      description: "Sistema completo de agendamentos com notificações em tempo real e painel administrativo.",
+      description:
+        "Sistema completo de agendamentos com notificações em tempo real e painel administrativo.",
       image: "calendar",
       tech: ["React", "Node.js", "PostgreSQL", "WebSockets"],
       result: "2.000+ usuários ativos",
@@ -24,7 +40,8 @@ const PortfolioSection = () => {
     {
       title: "EletroAririu",
       category: "Site + Sistema",
-      description: "Site institucional integrado com sistema de agendamento via webhook e automação de lembretes.",
+      description:
+        "Site institucional integrado com sistema de agendamento via webhook e automação de lembretes.",
       image: "zap",
       tech: ["React", "Webhook API", "SMS Integration", "CMS"],
       result: "+120% em leads qualificados",
@@ -33,7 +50,8 @@ const PortfolioSection = () => {
     {
       title: "Eventos24",
       category: "Landing Page",
-      description: "Landing page otimizada para conversão com A/B testing e integração com plataforma de ingressos.",
+      description:
+        "Landing page otimizada para conversão com A/B testing e integração com plataforma de ingressos.",
       image: "rocket",
       tech: ["Next.js", "Analytics", "A/B Testing", "Payment API"],
       result: "65% de taxa de conversão",
@@ -42,7 +60,8 @@ const PortfolioSection = () => {
     {
       title: "DashOps",
       category: "Dashboard Analítico",
-      description: "Painel de visualização de dados em tempo real com gráficos personalizados e exportação de relatórios.",
+      description:
+        "Painel de visualização de dados em tempo real com gráficos personalizados e exportação de relatórios.",
       image: "chart",
       tech: ["React", "D3.js", "WebSockets", "Redis"],
       result: "Processamento de 1M+ eventos/dia",
@@ -51,7 +70,8 @@ const PortfolioSection = () => {
     {
       title: "Portfólio Interativo",
       category: "Experiência Imersiva",
-      description: "Site portfólio com experiência visual única, animações avançadas e scroll-driven interactions.",
+      description:
+        "Site portfólio com experiência visual única, animações avançadas e scroll-driven interactions.",
       image: "sparkles",
       tech: ["React", "GSAP", "Three.js", "WebGL"],
       result: "Premio de Design 2024",
@@ -60,7 +80,10 @@ const PortfolioSection = () => {
   ];
 
   return (
-    <section id="portfolio" className="section-padding bg-muted/30 relative overflow-hidden">
+    <section
+      id="portfolio"
+      className="section-padding bg-muted/30 relative overflow-hidden"
+    >
       <div className="container-custom relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16 animate-fade-in-up">
@@ -84,10 +107,13 @@ const PortfolioSection = () => {
               <div className="relative h-56 bg-gradient-to-br from-purple-900/50 to-blue-500/50 flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 dot-pattern opacity-30" />
                 <Code2 className="w-20 h-20 text-white/50 relative z-10 group-hover:scale-110 transition-transform" />
-                
+
                 {/* Hover Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-6">
-                  <Button variant="outline" className="glass text-white border-white/30 hover:bg-white hover:text-black">
+                  <Button
+                    variant="outline"
+                    className="glass text-white border-white/30 hover:bg-white hover:text-black"
+                  >
                     <ExternalLink className="w-4 h-4 mr-2" />
                     Ver Case Completo
                   </Button>
@@ -98,7 +124,9 @@ const PortfolioSection = () => {
               <div className="p-6">
                 {/* Category Badge */}
                 <div className="inline-block glass-strong px-3 py-1 rounded-full mb-3">
-                  <span className="text-xs font-semibold text-purple-500">{project.category}</span>
+                  <span className="text-xs font-semibold text-purple-500">
+                    {project.category}
+                  </span>
                 </div>
 
                 {/* Title */}
@@ -125,7 +153,9 @@ const PortfolioSection = () => {
 
                 {/* Result */}
                 <div className="pt-4 border-t border-border/50">
-                  <p className="text-sm font-semibold text-blue-400">{project.result}</p>
+                  <p className="text-sm font-semibold text-blue-400">
+                    {project.result}
+                  </p>
                 </div>
               </div>
             </div>

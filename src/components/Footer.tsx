@@ -28,7 +28,11 @@ const Footer = () => {
   const socialLinks = [
     { icon: Github, href: "https://github.com", label: "GitHub" },
     { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
+    {
+      icon: Instagram,
+      href: "https://www.instagram.com/fascode_enterprise/",
+      label: "Instagram",
+    },
     { icon: Mail, href: "mailto:contato@fascode.com.br", label: "Email" },
   ];
 
@@ -61,14 +65,16 @@ const Footer = () => {
             {/* Social Links */}
             <div className="flex items-center gap-3">
               {socialLinks.map((social, index) => (
-                <button
+                <a
                   key={index}
-                  onClick={() => scrollToSection(social.href)}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-lg glass-strong hover:bg-purple-500 transition-all flex items-center justify-center group"
                   aria-label={social.label}
                 >
                   <social.icon className="w-5 h-5 text-muted-foreground group-hover:text-white transition-colors" />
-                </button>
+                </a>
               ))}
             </div>
           </div>
@@ -82,9 +88,9 @@ const Footer = () => {
                   <button
                     onClick={() => {
                       if (link.href.startsWith("http")) {
-                        window.open(link.href, "_blank"); // Abre o link externo em nova aba
+                        window.open(link.href, "_blank");
                       } else {
-                        scrollToSection(link.href); // Mantém o scroll suave para links internos
+                        scrollToSection(link.href);
                       }
                     }}
                     className="text-muted-foreground hover:text-foreground transition-colors text-sm text-left"
