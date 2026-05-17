@@ -6,7 +6,7 @@ const PortfolioSection = () => {
     {
       title: "CoreVitta",
       category: "WebApp B2B",
-      url: "corevitta.com.br/",
+      url: "https://corevitta.com.br/",
       description:
         "Sistema completo de gestão para escritórios médicos e controle de pacientes, com prontuário eletrônico, agenda inteligente e controle de acesso hierárquico.",
       image: "heart-pulse",
