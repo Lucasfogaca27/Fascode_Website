@@ -6,6 +6,7 @@ const PortfolioSection = () => {
     {
       title: "CoreVitta",
       category: "WebApp B2B",
+      url: "httsp://www.corevitta.com.br",
       description:
         "Sistema completo de gestão para escritórios médicos e controle de pacientes, com prontuário eletrônico, agenda inteligente e controle de acesso hierárquico.",
       image: "heart-pulse",
@@ -113,6 +114,11 @@ const PortfolioSection = () => {
                   <Button
                     variant="outline"
                     className="glass text-white border-white/30 hover:bg-white hover:text-black"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (project.url) window.open(project.url, "_blank");
+                      } 
+                    }
                   >
                     <ExternalLink className="w-4 h-4 mr-2" />
                     Ver Case Completo
