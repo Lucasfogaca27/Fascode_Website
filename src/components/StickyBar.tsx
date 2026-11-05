@@ -1,97 +1,60 @@
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
+/**
+ * Pílula flutuante de CTA. Aparece depois do hero e some quando o formulário
+ * de contato ou o rodapé entram na tela — assim nunca cobre o conteúdo final.
+ * Fica à esquerda para não colidir com os botões redondos (WhatsApp/tema) da direita.
+ */
 const StickyBar = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isAboveFooter, setIsAboveFooter] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
+  const [nearEnd, setNearEnd] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Mostrar a barra fixa após rolar 500px
-      setIsVisible(window.scrollY > 500);
+    const onScroll = () => setPastHero(window.scrollY > window.innerHeight * 0.8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
 
-      // Verificar se o rodapé está visível
-      const footer = document.querySelector("footer");
-      if (footer) {
-        const footerRect = footer.getBoundingClientRect();
-        setIsAboveFooter(footerRect.top < window.innerHeight);
-      }
+    const targets = ["contact", "footer"]
+      .map((sel) => (sel === "footer" ? document.querySelector("footer") : document.getElementById(sel)))
+      .filter(Boolean) as Element[];
+    const visible = new Set<Element>();
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) e.isIntersecting ? visible.add(e.target) : visible.delete(e.target);
+      setNearEnd(visible.size > 0);
+    });
+    targets.forEach((t) => io.observe(t));
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      io.disconnect();
     };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToContact = () => {
-    const element = document.getElementById("contact");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  if (!isVisible) return null;
+  const show = pastHero && !nearEnd;
 
   return (
     <div
-      className={`${
-        isAboveFooter ? "absolute bottom-[6rem]" : "fixed bottom-0"
-      } left-0 right-0 z-40 glass-strong border-t border-border/50 animate-slide-in-right`}
+      className={`hidden sm:block fixed bottom-6 left-8 z-40 transition-all duration-500 ${
+        show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6 pointer-events-none"
+      }`}
+      aria-hidden={!show}
     >
-      <div className="container-custom py-4">
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex-1">
-            <p className="font-bold text-foreground mb-1">
-              Pronto para começar seu projeto?
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Orçamento gratuito em até 24 horas
-            </p>
-          </div>
-          <Button onClick={scrollToContact} className="btn-hero shrink-0">
-            Solicitar Proposta
-            <ArrowRight className="ml-2 w-4 h-4" />
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
-  const scrollToSection = (id) => {
-    const element = document.querySelector(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  return (
-    <div className="border-t border-border/50 mt-15 mb-[4rem]">
-      <div className="container-custom py-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <p>© {currentYear} FASCODE. Todos os direitos reservados.</p>
-          <div className="flex items-center gap-6">
-            <button
-              onClick={() => scrollToSection("#")}
-              className="hover:text-foreground transition-colors"
-            >
-              Acessibilidade
-            </button>
-            <button
-              onClick={() => scrollToSection("#")}
-              className="hover:text-foreground transition-colors"
-            >
-              Sitemap
-            </button>
-          </div>
-        </div>
-      </div>
+      <button
+        onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+        tabIndex={show ? 0 : -1}
+        className="group flex items-center gap-3 rounded-full glass-strong shadow-2xl pl-2 pr-5 py-2 hover:border-purple-500/60 transition-colors"
+      >
+        <span className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-400 flex items-center justify-center">
+          <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-0.5 transition-transform" />
+        </span>
+        <span className="text-left">
+          <span className="block text-sm font-semibold leading-tight">Orçamento grátis</span>
+          <span className="hidden sm:block text-xs text-muted-foreground leading-tight">resposta em até 24h</span>
+        </span>
+      </button>
     </div>
   );
 };
 
 export default StickyBar;
-export { Footer };

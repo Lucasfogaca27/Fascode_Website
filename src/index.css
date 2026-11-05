@@ -112,6 +112,34 @@
     @apply font-bold tracking-tight;
   }
 
+  h1,
+  h2 {
+    @apply font-display;
+    letter-spacing: -0.03em;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  ::selection {
+    background: hsl(var(--purple-500) / 0.6);
+    color: white;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    border: 2px solid hsl(var(--background));
+    background: linear-gradient(hsl(var(--purple-500)), hsl(var(--blue-400)));
+  }
+
   h1 {
     @apply text-4xl md:text-5xl lg:text-6xl;
   }
@@ -127,8 +155,9 @@
 
 @layer components {
   /* Glass morphism effect */
+  /* Blur menor = bem menos custo ao rolar (há dezenas de cards .glass) */
   .glass {
-    @apply bg-card/40 backdrop-blur-xl border border-border/50;
+    @apply bg-card/50 backdrop-blur-md border border-border/50;
   }
 
   .glass-strong {
@@ -219,6 +248,103 @@
   .container-custom {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
+
+  /* Kicker acima dos títulos de seção: "// 01 — processo" */
+  .kicker {
+    @apply inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-purple-500 mb-4;
+  }
+  .kicker::before {
+    content: "";
+    @apply inline-block w-8 h-px bg-gradient-to-r from-purple-500 to-blue-400;
+  }
+
+  /* Grão sutil sobre a página inteira — estático (animar uma camada do tamanho da tela custa caro) */
+  .grain::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Grade com brilho que segue o mouse (usa --mx/--my) */
+  .spotlight-grid {
+    background-image:
+      linear-gradient(hsl(var(--foreground) / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.06) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 60% 55% at 50% 45%, black 30%, transparent 75%);
+  }
+  .spotlight {
+    background: radial-gradient(
+      600px circle at var(--mx, 50%) var(--my, 40%),
+      hsl(var(--purple-500) / 0.28),
+      transparent 60%
+    );
+  }
+
+  /* Texto vazado */
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px hsl(var(--foreground) / 0.35);
+  }
+
+  /* Borda em gradiente animada (cards em destaque) */
+  .border-glow {
+    position: relative;
+    isolation: isolate;
+  }
+  .border-glow::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from var(--angle, 0deg),
+      transparent 0deg,
+      var(--glow-a, hsl(var(--purple-500))) 70deg,
+      var(--glow-b, hsl(var(--blue-400))) 140deg,
+      transparent 220deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    /* Animar --angle repinta a cada frame: só gira no hover (ou com .border-glow-live) */
+    animation: spin-angle 6s linear infinite paused;
+  }
+  .border-glow:hover::before,
+  .border-glow-live::before {
+    animation-play-state: running;
+  }
+
+  /* Faixa infinita */
+  .marquee {
+    mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee var(--marquee-duration, 40s) linear infinite;
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* Revelação ao rolar: o JS adiciona .reveal-ready no <html> e .in-view nos elementos */
+  .reveal-ready .animate-fade-in-up:not(.in-view) {
+    opacity: 0;
+    animation-play-state: paused;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
 }
 
 @layer utilities {
@@ -309,8 +435,73 @@
     }
   }
 
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes spin-angle {
+    to {
+      --angle: 360deg;
+    }
+  }
+
+
+  @keyframes word-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.6em) rotate(4deg);
+      filter: blur(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+      filter: blur(0);
+    }
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  @keyframes pulse-dot {
+    0% { box-shadow: 0 0 0 0 currentColor; }
+    100% { box-shadow: 0 0 0 10px transparent; }
+  }
+
+  /* Sem filter: blur quebra a pintura de background-clip:text no Chrome */
+  @keyframes word-swap {
+    from {
+      opacity: 0;
+      transform: translateY(70%);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .animate-word-swap {
+    display: inline-block;
+    animation: word-swap 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .animate-word-in {
+    display: inline-block;
+    animation: word-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .animate-blink {
+    animation: blink 1s steps(1) infinite;
+  }
+
+  .animate-pulse-dot {
+    animation: pulse-dot 1.6s ease-out infinite;
+  }
+
   .animate-fade-in-up {
-    animation: fade-in-up 0.6s ease-out forwards;
+    animation: fade-in-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
 
   .animate-fade-in {

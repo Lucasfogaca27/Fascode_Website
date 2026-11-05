@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Instagram, MessageCircle } from "lucide-react";
+import { CONTACT, whatsappLink } from "@/lib/contact";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -66,21 +67,33 @@ const ContactSection = () => {
 
   const contactInfo = [
     {
-      icon: Mail,
-      label: "Email",
-      value: "contato@fascode.com.br",
-      link: "mailto:contato@fascode.com.br",
+      icon: MessageCircle,
+      label: "WhatsApp",
+      value: CONTACT.phoneDisplay,
+      link: whatsappLink(),
     },
     {
       icon: Phone,
       label: "Telefone",
-      value: "+55 (54) 99626-7250",
-      link: "tel:+5554996267250",
+      value: `+55 ${CONTACT.phoneDisplay}`,
+      link: `tel:${CONTACT.phoneE164}`,
+    },
+    {
+      icon: Instagram,
+      label: "Instagram",
+      value: CONTACT.instagramHandle,
+      link: CONTACT.instagramUrl,
+    },
+    {
+      icon: Mail,
+      label: "Email",
+      value: CONTACT.email,
+      link: `mailto:${CONTACT.email}`,
     },
     {
       icon: MapPin,
       label: "Endereço",
-      value: "Caxias do Sul, RS - Brasil",
+      value: CONTACT.city,
       link: null,
     },
   ];
@@ -89,6 +102,7 @@ const ContactSection = () => {
     <section id="contact" className="section-padding relative overflow-hidden">
       <div className="container-custom relative z-10">
         <div className="text-center mb-16 animate-fade-in-up">
+          <span className="kicker">07 — Contato</span>
           <h2 className="text-section font-bold mb-4">
             Vamos Começar Seu <span className="gradient-text">Projeto?</span>
           </h2>
@@ -113,7 +127,11 @@ const ContactSection = () => {
                     <div>
                       <p className="text-sm text-muted-foreground mb-1">{info.label}</p>
                       {info.link ? (
-                        <a href={info.link} className="font-semibold text-foreground hover:text-purple-500 transition-colors">
+                        <a
+                          href={info.link}
+                          {...(info.link.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                          className="font-semibold text-foreground hover:text-purple-500 transition-colors"
+                        >
                           {info.value}
                         </a>
                       ) : (
@@ -173,7 +191,7 @@ const ContactSection = () => {
                   name="user_phone"
                   value={formData.user_phone}
                   onChange={(e) => setFormData({ ...formData, user_phone: e.target.value })}
-                  placeholder="(54) 99626-7250"
+                  placeholder="(54) 90000-0000"
                   className="bg-background/50"
                 />
               </div>
@@ -251,7 +269,7 @@ const ContactSection = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-blue-400/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,hsl(var(--blue-400)/0.09),transparent_65%)] pointer-events-none" />
     </section>
   );
 };

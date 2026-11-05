@@ -27,6 +27,7 @@ const ProcessSection = () => {
       <div className="container-custom relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16 animate-fade-in-up">
+          <span className="kicker">02 — Processo</span>
           <h2 className="text-section font-bold mb-4">
             Como <span className="gradient-text">Trabalhamos</span>
           </h2>
@@ -43,7 +44,7 @@ const ProcessSection = () => {
               className="group relative"
             >
               {/* Card */}
-              <div className="glass h-full p-8 rounded-2xl hover:scale-105 transition-all duration-300 hover:shadow-elevated animate-fade-in-up"
+              <div className="glass h-full p-8 rounded-2xl hover:-translate-y-2 transition-all duration-300 hover:shadow-elevated animate-fade-in-up"
                 style={{ animationDelay: `${index * 0.15}s` }}
               >
                 {/* Icon */}
@@ -91,7 +92,7 @@ const ProcessSection = () => {
       </div>
 
       {/* Background decoration */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[radial-gradient(circle,hsl(var(--purple-500)/0.09),transparent_65%)] pointer-events-none" />
     </section>
   );
 };

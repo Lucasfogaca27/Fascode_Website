@@ -57,6 +57,7 @@ const TeamSection = () => {
       <div className="container-custom relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16 animate-fade-in-up">
+          <span className="kicker">04 — Equipe</span>
           <h2 className="text-section font-bold mb-4">
             Nossa <span className="gradient-text">Equipe</span>
           </h2>
@@ -74,7 +75,7 @@ const TeamSection = () => {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Card */}
-              <div className="glass p-6 rounded-2xl hover:scale-105 transition-all duration-300 hover:shadow-card text-center">
+              <div className="glass p-6 rounded-2xl hover:-translate-y-2 transition-all duration-300 hover:shadow-card text-center">
                 {/* Founder Badge */}
                 {member.isFounder && (
                   <div className="absolute top-4 right-4">
@@ -172,7 +173,7 @@ const TeamSection = () => {
       </div>
 
       {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-0 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,hsl(var(--purple-500)/0.09),transparent_65%)] pointer-events-none" />
     </section>
   );
 };

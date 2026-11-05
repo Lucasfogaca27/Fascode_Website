@@ -52,6 +52,7 @@ const TestimonialsSection = () => {
       <div className="container-custom relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16 animate-fade-in-up">
+          <span className="kicker">05 — Clientes</span>
           <h2 className="text-section font-bold mb-4">
             O Que Nossos <span className="gradient-text">Clientes Dizem</span>
           </h2>
@@ -65,7 +66,7 @@ const TestimonialsSection = () => {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="glass p-8 rounded-2xl hover:scale-105 transition-all duration-300 hover:shadow-card animate-fade-in-up"
+              className="glass p-8 rounded-2xl hover:-translate-y-2 transition-all duration-300 hover:shadow-card animate-fade-in-up"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Quote Icon */}
@@ -119,7 +120,7 @@ const TestimonialsSection = () => {
       </div>
 
       {/* Background decoration */}
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-400/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,hsl(var(--blue-400)/0.09),transparent_65%)] pointer-events-none" />
     </section>
   );
 };

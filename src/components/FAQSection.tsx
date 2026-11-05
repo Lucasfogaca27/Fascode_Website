@@ -46,6 +46,7 @@ const FAQSection = () => {
       <div className="container-custom relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16 animate-fade-in-up">
+          <span className="kicker">06 — Dúvidas</span>
           <h2 className="text-section font-bold mb-4">
             Perguntas <span className="gradient-text">Frequentes</span>
           </h2>
@@ -92,7 +93,7 @@ const FAQSection = () => {
       </div>
 
       {/* Background decoration */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[radial-gradient(circle,hsl(var(--purple-500)/0.09),transparent_65%)] pointer-events-none" />
     </section>
   );
 };

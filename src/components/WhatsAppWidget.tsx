@@ -1,17 +1,13 @@
 import { MessageCircle, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { CONTACT, whatsappLink } from "@/lib/contact";
 
 const WhatsAppWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const phoneNumber = "5554996267250"; // Replace with actual WhatsApp number
-  const message = "Olá! Gostaria de solicitar um orçamento para meu projeto.";
 
   const handleWhatsAppClick = () => {
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-      message,
-    )}`;
-    window.open(url, "_blank");
+    window.open(whatsappLink("Olá! Gostaria de solicitar um orçamento para meu projeto."), "_blank");
   };
 
   const [mounted, setMounted] = useState(false);
@@ -49,7 +45,7 @@ const WhatsAppWidget = () => {
               </div>
               <div>
                 <h4 className="font-bold text-foreground">FASCODE</h4>
-                <p className="text-sm text-muted-foreground">Online agora</p>
+                <p className="text-sm text-muted-foreground font-mono">{CONTACT.phoneDisplay}</p>
               </div>
             </div>
 
