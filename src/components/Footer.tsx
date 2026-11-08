@@ -6,7 +6,7 @@ const nav = [
   { label: "Como trabalhamos", id: "process" },
   { label: "Serviços", id: "services" },
   { label: "Equipe", id: "team" },
-  { label: "FAQ", id: "faq" },
+  { label: "Perguntas frequentes", id: "faq" },
   { label: "Contato", id: "contact" },
 ];
 
@@ -20,13 +20,13 @@ const Footer = () => {
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <footer className="relative overflow-hidden border-t border-border/60 bg-[hsl(var(--background))]">
+    <footer className="relative overflow-hidden border-t border-border">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent" />
       <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[400px] rounded-full bg-[radial-gradient(ellipse,hsl(var(--purple-500)/0.18),transparent_65%)] pointer-events-none" />
 
       <div className="container-custom relative pt-20 pb-10">
         {/* CTA grande */}
-        <div className="grid lg:grid-cols-12 gap-10 pb-16 border-b border-border/60">
+        <div className="grid lg:grid-cols-12 gap-10 pb-16 border-b border-border">
           <div className="lg:col-span-7">
             <span className="kicker">Bora conversar?</span>
             <h2 className="text-[clamp(2.2rem,5vw,4rem)] font-extrabold leading-[0.95]">
@@ -40,36 +40,36 @@ const Footer = () => {
               href={whatsappLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center justify-between gap-4 rounded-2xl border border-border/70 bg-card/40 hover:bg-emerald-500 hover:border-emerald-500 px-5 py-4 transition-all"
+              className="group flex items-center justify-between gap-4 rounded-2xl border border-border bg-card px-5 py-4 transition-[border-color,transform] hover:border-emerald-500/70 hover:-translate-y-0.5"
             >
               <span className="flex items-center gap-4">
-                <span className="w-11 h-11 rounded-xl bg-emerald-500/15 group-hover:bg-black/15 flex items-center justify-center">
-                  <MessageCircle className="w-5 h-5 text-emerald-400 group-hover:text-black" />
+                <span className="w-11 h-11 rounded-xl bg-emerald-500/15 flex items-center justify-center">
+                  <MessageCircle className="w-5 h-5 text-emerald-500" />
                 </span>
                 <span>
-                  <span className="block text-xs text-muted-foreground group-hover:text-black/70">WhatsApp</span>
-                  <span className="block font-mono text-lg font-semibold group-hover:text-black">{CONTACT.phoneDisplay}</span>
+                  <span className="block text-xs text-muted-foreground">WhatsApp</span>
+                  <span className="block font-mono text-lg font-semibold">{CONTACT.phoneDisplay}</span>
                 </span>
               </span>
-              <ArrowUpRight className="w-5 h-5 group-hover:text-black group-hover:rotate-45 transition-transform" />
+              <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-emerald-500 transition-colors" />
             </a>
 
             <a
               href={CONTACT.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center justify-between gap-4 rounded-2xl border border-border/70 bg-card/40 px-5 py-4 transition-all hover:border-transparent hover:bg-[linear-gradient(45deg,#f58529,#dd2a7b,#8134af,#515bd4)]"
+              className="group flex items-center justify-between gap-4 rounded-2xl border border-border bg-card px-5 py-4 transition-[border-color,transform] hover:border-pink-500/70 hover:-translate-y-0.5"
             >
               <span className="flex items-center gap-4">
-                <span className="w-11 h-11 rounded-xl bg-pink-500/15 group-hover:bg-white/20 flex items-center justify-center">
-                  <Instagram className="w-5 h-5 text-pink-400 group-hover:text-white" />
+                <span className="w-11 h-11 rounded-xl bg-pink-500/15 flex items-center justify-center">
+                  <Instagram className="w-5 h-5 text-pink-500" />
                 </span>
                 <span>
-                  <span className="block text-xs text-muted-foreground group-hover:text-white/80">Instagram</span>
-                  <span className="block font-mono text-lg font-semibold group-hover:text-white">{CONTACT.instagramHandle}</span>
+                  <span className="block text-xs text-muted-foreground">Instagram</span>
+                  <span className="block font-mono text-lg font-semibold">{CONTACT.instagramHandle}</span>
                 </span>
               </span>
-              <ArrowUpRight className="w-5 h-5 group-hover:text-white group-hover:rotate-45 transition-transform" />
+              <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-pink-500 transition-colors" />
             </a>
           </div>
         </div>
@@ -82,7 +82,7 @@ const Footer = () => {
               <span className="text-xl font-bold gradient-text">FASCODE</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-              Estúdio de software que cria sites, SaaS e sistemas de gestão que vendem e escalam.
+              Estúdio de software de Caxias do Sul. Sistemas sob medida, sites e SaaS.
             </p>
           </div>
 
@@ -91,7 +91,7 @@ const Footer = () => {
             <ul className="space-y-2.5">
               {nav.map((l) => (
                 <li key={l.id}>
-                  <button onClick={() => scrollTo(l.id)} className="text-sm text-foreground/80 hover:text-foreground hover:translate-x-1 transition-all">
+                  <button onClick={() => scrollTo(l.id)} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                     {l.label}
                   </button>
                 </li>
@@ -186,9 +186,9 @@ const Footer = () => {
 
         {/* Barra inferior */}
         {/* pb/pr extras: espaço para os botões flutuantes (WhatsApp e tema) não cobrirem nada */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 pb-36 sm:pb-0 sm:pr-24 border-t border-border/60 text-xs text-muted-foreground">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 pb-24 sm:pb-0 sm:pr-20 border-t border-border text-xs text-muted-foreground">
           <p>© {year} FASCODE. Todos os direitos reservados.</p>
-          <p className="font-mono">feito à mão em Caxias do Sul ✦</p>
+          <p className="font-mono">Feito sob medida, por FASCODE</p>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="group inline-flex items-center gap-2 hover:text-foreground transition-colors"

@@ -1,101 +1,71 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
-const FAQSection = () => {
-  const faqs = [
-    {
-      question: "Quanto tempo leva para desenvolver um projeto?",
-      answer: "O prazo varia de acordo com a complexidade. Sites institucionais simples levam de 2-4 semanas. E-commerces e WebApps complexos podem levar de 8-16 semanas. Sempre trabalhamos com cronogramas realistas e mantemos você atualizado sobre o progresso.",
-    },
-    {
-      question: "Qual é o investimento necessário?",
-      answer: "Nossos projetos começam a partir de R$ 5.000 para landing pages e sites institucionais básicos. E-commerces e aplicações web customizadas variam de R$ 15.000 a R$ 80.000+. Entre em contato para um orçamento personalizado sem compromisso.",
-    },
-    {
-      question: "Vocês oferecem manutenção e suporte?",
-      answer: "Sim! Oferecemos pacotes de manutenção mensal que incluem atualizações de segurança, correções de bugs, backups automáticos e suporte prioritário. Também disponibilizamos suporte pontual para ajustes específicos.",
-    },
-    {
-      question: "Como funciona o processo de desenvolvimento?",
-      answer: "Trabalhamos com metodologia ágil: 1) Reunião inicial para entender suas necessidades, 2) Criação de protótipos e aprovação do design, 3) Desenvolvimento iterativo com demonstrações semanais, 4) Testes rigorosos, 5) Deploy e treinamento da equipe.",
-    },
-    {
-      question: "Vocês trabalham com quais tecnologias?",
-      answer: "Utilizamos as tecnologias mais modernas e robustas do mercado: React, Next.js, Node.js, TypeScript, PostgreSQL, MongoDB, AWS, Vercel, e muito mais. Escolhemos as ferramentas ideais para cada projeto.",
-    },
-    {
-      question: "O site será responsivo e otimizado para mobile?",
-      answer: "Absolutamente! Todos os nossos projetos são desenvolvidos com abordagem mobile-first, garantindo experiência perfeita em smartphones, tablets e desktops. Também otimizamos para performance e SEO.",
-    },
-    {
-      question: "Posso fazer alterações no site depois de pronto?",
-      answer: "Sim! Entregamos um painel administrativo intuitivo (CMS) onde você pode editar textos, imagens e conteúdos sem precisar mexer em código. Para alterações mais complexas, oferecemos suporte técnico.",
-    },
-    {
-      question: "Como funciona a garantia?",
-      answer: "Oferecemos 30 dias de garantia após o lançamento para correção de bugs e ajustes. Também disponibilizamos 3 meses de suporte técnico gratuito para dúvidas sobre uso e configurações básicas.",
-    },
-  ];
+const faqs = [
+  {
+    question: "Quanto custa um projeto?",
+    answer:
+      "Projetos personalizados ficam entre R$ 2 mil e R$ 30 mil, conforme o escopo. Depois da primeira conversa mandamos um orçamento fechado, sem compromisso.",
+  },
+  {
+    question: "Quanto tempo leva?",
+    answer:
+      "Sites simples ficam prontos em 2 a 4 semanas. Sistemas e e-commerces levam de 8 a 16 semanas. O prazo vai por escrito na proposta e você acompanha as entregas semanais.",
+  },
+  {
+    question: "Vocês fazem manutenção e suporte depois da entrega?",
+    answer:
+      "Sim. Temos planos mensais com atualizações de segurança, correções, backups e suporte prioritário, e também atendemos ajustes pontuais.",
+  },
+  {
+    question: "Consigo alterar o conteúdo sozinho depois?",
+    answer:
+      "Quando faz sentido para o projeto, entregamos um painel para você editar textos e imagens sem mexer em código. Mudanças maiores ficam com o nosso suporte.",
+  },
+  {
+    question: "Preciso entender de tecnologia para contratar?",
+    answer:
+      "Não. Você explica como a empresa funciona e o que precisa resolver; a escolha das ferramentas fica com a gente. Usamos React, TypeScript, Java, Node.js e PostgreSQL, entre outras.",
+  },
+  {
+    question: "E se aparecer um problema depois que o sistema for ao ar?",
+    answer:
+      "Nos primeiros 30 dias corrigimos qualquer bug sem custo, e nos 3 primeiros meses tiramos dúvidas de uso e configuração gratuitamente.",
+  },
+];
 
-  return (
-    <section id="faq" className="section-padding bg-muted/30 relative overflow-hidden">
-      <div className="container-custom relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in-up">
-          <span className="kicker">06 — Dúvidas</span>
-          <h2 className="text-section font-bold mb-4">
-            Perguntas <span className="gradient-text">Frequentes</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Tudo que você precisa saber sobre nossos serviços
-          </p>
-        </div>
-
-        {/* FAQ Accordion */}
-        <div className="max-w-3xl mx-auto animate-fade-in-up delay-200">
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="glass rounded-xl px-6 border-0"
-              >
-                <AccordionTrigger className="text-left hover:no-underline py-6 text-lg font-semibold">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed pb-6">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-
-        {/* CTA */}
-        <div className="text-center mt-16 animate-fade-in-up delay-400">
-          <p className="text-lg text-muted-foreground mb-4">
-            Não encontrou sua resposta?
-          </p>
+const FAQSection = () => (
+  <section id="faq" className="section-padding bg-muted/30">
+    <div className="container-custom grid lg:grid-cols-12 gap-12">
+      <div className="lg:col-span-4 animate-fade-in-up">
+        <span className="kicker">Dúvidas</span>
+        <h2 className="section-title">Perguntas frequentes</h2>
+        <p className="mt-6 text-muted-foreground">
+          Não achou o que procurava?{" "}
           <button
-            onClick={() => {
-              const element = document.getElementById("contact");
-              if (element) element.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="text-lg font-semibold text-purple-500 hover:text-blue-400 transition-colors underline underline-offset-4"
+            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+            className="font-semibold text-foreground underline decoration-purple-500 decoration-2 underline-offset-4 hover:decoration-foreground transition-colors"
           >
-            Entre em contato conosco
+            Fale com a gente
           </button>
-        </div>
+        </p>
       </div>
 
-      {/* Background decoration */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[radial-gradient(circle,hsl(var(--purple-500)/0.09),transparent_65%)] pointer-events-none" />
-    </section>
-  );
-};
+      <Accordion type="single" collapsible className="lg:col-span-8 space-y-3 animate-fade-in-up">
+        {faqs.map((faq, i) => (
+          <AccordionItem
+            key={i}
+            value={`item-${i}`}
+            className="rounded-xl border border-border bg-card px-6 transition-colors hover:border-foreground/30 hover:bg-accent/40 data-[state=open]:border-purple-500/60 data-[state=open]:bg-card"
+          >
+            <AccordionTrigger className="text-left text-base md:text-lg font-semibold py-5 hover:no-underline [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-muted-foreground [&[data-state=open]>svg]:text-purple-500">
+              {faq.question}
+            </AccordionTrigger>
+            <AccordionContent className="text-base text-muted-foreground leading-relaxed pb-6">{faq.answer}</AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </div>
+  </section>
+);
 
 export default FAQSection;
