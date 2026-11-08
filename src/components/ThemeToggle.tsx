@@ -1,47 +1,30 @@
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
-
-import { useState as useLocalState } from "react";
 
 const ThemeToggle = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
-    // Check for saved theme preference or default to dark
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-    const initialTheme = savedTheme || "dark";
-    setTheme(initialTheme);
-    document.documentElement.classList.toggle("dark", initialTheme === "dark");
+    const saved = (localStorage.getItem("theme") as "light" | "dark" | null) ?? "dark";
+    setTheme(saved);
+    document.documentElement.classList.toggle("dark", saved === "dark");
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
+  const toggle = () => {
+    const next = theme === "light" ? "dark" : "light";
+    setTheme(next);
+    localStorage.setItem("theme", next);
+    document.documentElement.classList.toggle("dark", next === "dark");
   };
 
-  // Render through portal so positioning is relative to viewport
-  const [mounted, setMounted] = useLocalState(false);
-
-  useEffect(() => setMounted(true), []);
-
-  if (!mounted) return null;
-
-  return createPortal(
+  return (
     <button
-      onClick={toggleTheme}
-      className="fixed bottom-8 right-8 z-[999] w-14 h-14 rounded-full bg-gray-800 text-white hover:bg-gray-700 hover:scale-110 transition-all shadow-lg flex items-center justify-center group"
-      aria-label="Toggle theme"
+      onClick={toggle}
+      className="w-10 h-10 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+      aria-label={theme === "dark" ? "Usar tema claro" : "Usar tema escuro"}
     >
-      {theme === "light" ? (
-        <Moon className="w-6 h-6 text-yellow-400 group-hover:text-yellow-500 transition-colors" />
-      ) : (
-        <Sun className="w-6 h-6 text-yellow-400 group-hover:text-yellow-500 transition-colors" />
-      )}
-    </button>,
-    document.body,
+      {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+    </button>
   );
 };
 

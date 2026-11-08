@@ -1,109 +1,79 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Code2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ThemeToggle from "@/components/ThemeToggle";
+
+const navItems = [
+  { label: "Cases", id: "portfolio" },
+  { label: "Processo", id: "process" },
+  { label: "Serviços", id: "services" },
+  { label: "Equipe", id: "team" },
+  { label: "FAQ", id: "faq" },
+];
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setIsScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
-    }
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setIsMobileMenuOpen(false);
   };
-
-  const navItems = [
-    { label: "Início", id: "hero" },
-    { label: "Cases", id: "portfolio" },
-    { label: "Processo", id: "process" },
-    { label: "Serviços", id: "services" },
-    { label: "Equipe", id: "team" },
-    { label: "Contato", id: "contact" },
-  ];
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "glass-strong shadow-lg"
-          : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-colors duration-300 ${
+        isScrolled || isMobileMenuOpen
+          ? "bg-background/85 backdrop-blur-md border-border"
+          : "bg-transparent border-transparent"
       }`}
     >
       <div className="container-custom">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <button
-            onClick={() => scrollToSection("hero")}
-            className="flex items-center gap-2 group"
-          >
-            <div className="relative">
-              <Code2 className="w-8 h-8 text-purple-500 group-hover:text-blue-400 transition-colors" />
-              <div className="absolute inset-0 blur-xl bg-purple-500/30 group-hover:bg-blue-400/30 transition-colors" />
-            </div>
-            <span className="text-2xl font-bold gradient-text">
-              FASCODE
-            </span>
+        <div className="flex items-center justify-between h-16 md:h-20">
+          <button onClick={() => scrollToSection("hero")} className="flex items-center gap-2" aria-label="Voltar ao início">
+            <Code2 className="w-7 h-7 text-purple-500" />
+            <span className="text-xl font-bold gradient-text">FASCODE</span>
           </button>
 
-          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors relative group"
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-400 group-hover:w-full transition-all duration-300" />
               </button>
             ))}
           </nav>
 
-          {/* CTA Buttons */}
-          <div className="hidden lg:flex items-center gap-4">
-            <Button
-              variant="ghost"
-              onClick={() => scrollToSection("portfolio")}
-              className="font-medium"
-            >
-              Ver Portfólio
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Button onClick={() => scrollToSection("contact")} className="hidden lg:inline-flex">
+              Solicitar proposta
             </Button>
-            <Button
-              onClick={() => scrollToSection("contact")}
-              className="btn-hero"
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden w-10 h-10 flex items-center justify-center"
+              aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+              aria-expanded={isMobileMenuOpen}
             >
-              Solicitar Proposta
-            </Button>
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2"
-          >
-            {isMobileMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden glass-strong border-t border-border/50 animate-fade-in">
-          <nav className="container-custom py-6 flex flex-col gap-4">
+        <div className="lg:hidden border-t border-border animate-fade-in">
+          <nav className="container-custom py-6 flex flex-col gap-2">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -113,21 +83,9 @@ const Header = () => {
                 {item.label}
               </button>
             ))}
-            <div className="flex flex-col gap-3 mt-4">
-              <Button
-                variant="outline"
-                onClick={() => scrollToSection("portfolio")}
-                className="w-full"
-              >
-                Ver Portfólio
-              </Button>
-              <Button
-                onClick={() => scrollToSection("contact")}
-                className="w-full btn-hero"
-              >
-                Solicitar Proposta
-              </Button>
-            </div>
+            <Button size="lg" onClick={() => scrollToSection("contact")} className="mt-4 w-full">
+              Solicitar proposta
+            </Button>
           </nav>
         </div>
       )}

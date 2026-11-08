@@ -1,124 +1,85 @@
-import { Globe, ShoppingCart, Smartphone, Zap, Wrench } from "lucide-react";
+import { ArrowRight, Check, Globe, ShoppingCart, Wrench, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-const ServicesSection = () => {
-  const services = [
-    {
-      icon: Globe,
-      title: "Sites Institucionais",
-      description: "Sites corporativos que transmitem credibilidade e profissionalismo, otimizados para conversão.",
-      case: "EletroAririu",
-      result: "+120% em leads qualificados",
-    },
-    {
-      icon: ShoppingCart,
-      title: "E-commerce",
-      description: "Lojas online completas com checkout otimizado, gestão de estoque e integrações de pagamento.",
-      case: "MóveisViva",
-      result: "+35% na taxa de conversão",
-    },
-    {
-      icon: Smartphone,
-      title: "WebApps & SaaS",
-      description: "Aplicações web escaláveis e responsivas que resolvem problemas reais do seu negócio.",
-      case: "AgendaPro",
-      result: "2.000+ usuários ativos",
-    },
-    {
-      icon: Zap,
-      title: "Automação",
-      description: "Integrações e automações que economizam tempo e aumentam a eficiência operacional.",
-      case: "EletroAririu",
-      result: "80% menos trabalho manual",
-    },
-    {
-      icon: Wrench,
-      title: "Manutenção & Suporte",
-      description: "Acompanhamento contínuo, atualizações de segurança e melhorias constantes no seu projeto.",
-      case: "Diversos clientes",
-      result: "99.9% uptime garantido",
-    },
-  ];
+const custom = {
+  examples: [
+    "Sistemas de gestão internos",
+    "Portais e áreas do cliente",
+    "Integração com o que você já usa",
+    "SaaS para vender como produto",
+  ],
+};
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+const services = [
+  { icon: Globe, title: "Sites institucionais", text: "Rápidos, bem posicionados no Google e fáceis de atualizar." },
+  { icon: ShoppingCart, title: "E-commerce", text: "Loja com checkout simples, estoque e pagamentos integrados." },
+  { icon: Zap, title: "Automação", text: "Tarefas repetitivas rodando sozinhas, sem planilha no meio." },
+  { icon: Wrench, title: "Manutenção e suporte", text: "Atualizações, correções e melhorias depois da entrega." },
+];
 
-  return (
-    <section id="services" className="section-padding bg-muted/30 relative overflow-hidden">
-      <div className="container-custom relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in-up">
-          <span className="kicker">03 — Serviços</span>
-          <h2 className="text-section font-bold mb-4">
-            Nossos <span className="gradient-text">Serviços</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Soluções completas para transformar sua presença digital
-          </p>
-        </div>
+// Qualidade de operação: vale para qualquer projeto
+const operation = ["Código revisado e versionado", "Backups e monitoramento", "Hospedagem e domínio configurados", "Suporte com quem desenvolveu"];
 
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="group glass p-6 rounded-2xl hover:-translate-y-2 transition-all duration-300 hover:shadow-card animate-fade-in-up cursor-pointer"
-              style={{ animationDelay: `${index * 0.1}s` }}
-              onClick={() => scrollToSection("portfolio")}
-            >
-              {/* Icon */}
-              <div className="relative w-14 h-14 mb-4">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-blue-400 rounded-lg opacity-20 blur-lg group-hover:opacity-40 transition-opacity" />
-                <div className="relative w-full h-full bg-gradient-to-br from-purple-500/20 to-blue-400/20 rounded-lg flex items-center justify-center group-hover:from-purple-500 group-hover:to-blue-400 transition-all">
-                  <service.icon className="w-7 h-7 text-purple-500 group-hover:text-white transition-colors" />
-                </div>
-              </div>
+const card = "rounded-2xl border border-border bg-card transition-colors hover:border-foreground/25";
 
-              {/* Content */}
-              <h3 className="text-xl font-bold mb-2 group-hover:gradient-text transition-all">
-                {service.title}
-              </h3>
-              <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
-                {service.description}
-              </p>
-
-              {/* Case Study Mini */}
-              <div className="pt-4 border-t border-border/50">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-xs text-muted-foreground mb-1">Case</p>
-                    <p className="font-semibold text-sm">{service.case}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-xs text-muted-foreground mb-1">Resultado</p>
-                    <p className="font-semibold text-sm text-blue-400">{service.result}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="text-center animate-fade-in-up delay-300">
-          <Button
-            size="lg"
-            onClick={() => scrollToSection("contact")}
-            className="btn-hero"
-          >
-            Iniciar Meu Projeto
-          </Button>
-        </div>
+const ServicesSection = () => (
+  <section id="services" className="section-padding bg-muted/30">
+    <div className="container-custom">
+      <div className="mb-16 animate-fade-in-up">
+        <span className="kicker">Serviços</span>
+        <h2 className="section-title">O que fazemos</h2>
       </div>
 
-      {/* Background decoration */}
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,hsl(var(--blue-400)/0.09),transparent_65%)] pointer-events-none" />
-    </section>
-  );
-};
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+        {/* Destaque: software personalizado */}
+        <div className={cn(card, "md:col-span-2 lg:row-span-2 p-8 md:p-10 flex flex-col border-purple-500/40 hover:border-purple-500/70 animate-fade-in-up")}>
+          <span className="font-mono text-xs uppercase tracking-[0.2em] text-purple-700 dark:text-purple-300 mb-4">Nosso foco</span>
+          <h3 className="text-3xl md:text-4xl font-extrabold font-display mb-4">Software personalizado</h3>
+          <p className="text-lg text-muted-foreground leading-relaxed max-w-xl mb-8">
+            Quando planilha e sistema pronto não dão conta, construímos o sistema do jeito que a sua operação funciona.
+          </p>
+          <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-3 mb-10">
+            {custom.examples.map((e) => (
+              <li key={e} className="flex items-center gap-2.5 text-foreground/90">
+                <Check className="w-4 h-4 text-purple-500 shrink-0" />
+                {e}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-auto flex flex-col sm:flex-row sm:items-center gap-4">
+            <Button size="lg" className="group" onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
+              Conversar sobre meu sistema
+              <ArrowRight className="group-hover:translate-x-0.5 transition-transform" />
+            </Button>
+            <span className="text-sm text-muted-foreground">
+              De <strong className="text-foreground">R$ 2 mil a R$ 30 mil</strong>, conforme o escopo
+            </span>
+          </div>
+        </div>
+
+        {services.map((s, i) => (
+          <div key={s.title} className={`${card} p-6 animate-fade-in-up`} style={{ animationDelay: `${(i + 1) * 0.05}s` }}>
+            <s.icon className="w-6 h-6 text-purple-500 mb-5" />
+            <h3 className="text-lg md:text-xl font-bold mb-2">{s.title}</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">{s.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-12 pt-8 border-t border-border animate-fade-in-up">
+        <p className="text-sm font-semibold mb-4">Em todo projeto</p>
+        <ul className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {operation.map((o) => (
+            <li key={o} className="flex items-center gap-2.5 text-sm text-muted-foreground">
+              <Check className="w-4 h-4 text-purple-500 shrink-0" />
+              {o}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+);
 
 export default ServicesSection;

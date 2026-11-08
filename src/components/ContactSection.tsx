@@ -1,32 +1,43 @@
 import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
-import { Mail, Phone, MapPin, Send, Instagram, MessageCircle } from "lucide-react";
+import { Check, ChevronDown, Mail, MapPin, Send, Instagram, MessageCircle } from "lucide-react";
 import { CONTACT, whatsappLink } from "@/lib/contact";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+
+const emptyForm = {
+  from_name: "",
+  user_email: "",
+  user_phone: "",
+  project_type: "",
+  budget: "",
+  message: "",
+};
+
+// O texto do botão é o que chega no email
+const projectTypes = ["Software personalizado", "Site institucional", "E-commerce", "Automação", "Manutenção", "Outro"];
+const budgets = ["Até R$ 5 mil", "R$ 5 mil a R$ 15 mil", "R$ 15 mil a R$ 30 mil", "Acima de R$ 30 mil", "Ainda não sei"];
+
+const contactInfo = [
+  { icon: MessageCircle, label: "WhatsApp", value: CONTACT.phoneDisplay, link: whatsappLink() },
+  { icon: Instagram, label: "Instagram", value: CONTACT.instagramHandle, link: CONTACT.instagramUrl },
+  { icon: Mail, label: "Email", value: CONTACT.email, link: `mailto:${CONTACT.email}` },
+  { icon: MapPin, label: "Onde estamos", value: CONTACT.city, link: null },
+];
+
+const label = "block text-sm font-medium text-foreground/90 mb-2";
+const field = "h-12 text-base bg-background focus-visible:ring-purple-500 focus-visible:ring-offset-0";
 
 const ContactSection = () => {
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   const [isLoading, setIsLoading] = useState(false);
-  
-  const [formData, setFormData] = useState({
-    from_name: "",
-    user_email: "",
-    user_phone: "",
-    project_type: "",
-    budget: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState(emptyForm);
+  const set = (key: keyof typeof emptyForm) => (value: string) => setFormData((f) => ({ ...f, [key]: value }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,239 +48,169 @@ const ContactSection = () => {
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         formRef.current!,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       );
 
       toast({
-        title: "Mensagem enviada com sucesso!",
-        description: "Entraremos em contato em até 24h. Obrigado!",
+        title: "Mensagem enviada!",
+        description: "Respondemos em até 24h. Obrigado!",
       });
-
-      setFormData({
-        from_name: "",
-        user_email: "",
-        user_phone: "",
-        project_type: "",
-        budget: "",
-        message: "",
-      });
+      setFormData(emptyForm);
     } catch (error) {
       console.error("Erro ao enviar:", error);
       toast({
         variant: "destructive",
         title: "Erro no envio",
-        description: "Não conseguimos enviar sua mensagem. Tente novamente.",
+        description: "Não conseguimos enviar sua mensagem. Tente de novo ou chame no WhatsApp.",
       });
     } finally {
       setIsLoading(false);
     }
   };
 
-  const contactInfo = [
-    {
-      icon: MessageCircle,
-      label: "WhatsApp",
-      value: CONTACT.phoneDisplay,
-      link: whatsappLink(),
-    },
-    {
-      icon: Phone,
-      label: "Telefone",
-      value: `+55 ${CONTACT.phoneDisplay}`,
-      link: `tel:${CONTACT.phoneE164}`,
-    },
-    {
-      icon: Instagram,
-      label: "Instagram",
-      value: CONTACT.instagramHandle,
-      link: CONTACT.instagramUrl,
-    },
-    {
-      icon: Mail,
-      label: "Email",
-      value: CONTACT.email,
-      link: `mailto:${CONTACT.email}`,
-    },
-    {
-      icon: MapPin,
-      label: "Endereço",
-      value: CONTACT.city,
-      link: null,
-    },
-  ];
-
   return (
-    <section id="contact" className="section-padding relative overflow-hidden">
-      <div className="container-custom relative z-10">
-        <div className="text-center mb-16 animate-fade-in-up">
-          <span className="kicker">07 — Contato</span>
-          <h2 className="text-section font-bold mb-4">
-            Vamos Começar Seu <span className="gradient-text">Projeto?</span>
+    <section id="contact" className="section-padding">
+      <div className="container-custom grid lg:grid-cols-12 gap-12 lg:gap-16">
+        <div className="lg:col-span-5 animate-fade-in-up">
+          <span className="kicker">Contato</span>
+          <h2 className="section-title">
+            Vamos começar seu <span className="gradient-text">projeto?</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Solicite uma proposta sem compromisso e receba em até 24h
-          </p>
+          <p className="section-lead">Conte o que você precisa. Respondemos em até 24h com os próximos passos.</p>
+
+          <ul className="mt-10 space-y-5">
+            {contactInfo.map((info) => (
+              <li key={info.label} className="flex items-center gap-4">
+                <span className="w-11 h-11 rounded-full border border-border flex items-center justify-center shrink-0">
+                  <info.icon className="w-5 h-5 text-purple-500" />
+                </span>
+                <span>
+                  <span className="block text-xs text-muted-foreground">{info.label}</span>
+                  {info.link ? (
+                    <a
+                      href={info.link}
+                      {...(info.link.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                      className="font-medium text-foreground underline-offset-4 decoration-purple-500 hover:underline"
+                    >
+                      {info.value}
+                    </a>
+                  ) : (
+                    <span className="block font-medium">{info.value}</span>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* REINSERIDA A ESTRUTURA DE GRID AQUI */}
-        <div className="grid lg:grid-cols-2 gap-12">
-          
-          {/* COLUNA 1: INFORMAÇÕES DE CONTATO REINSERIDAS */}
-          <div className="space-y-8 animate-fade-in-up delay-100">
-            <div className="glass p-8 rounded-2xl">
-              <h3 className="text-2xl font-bold mb-6">Entre em Contato</h3>
-              <div className="space-y-6">
-                {contactInfo.map((info, index) => (
-                  <div key={index} className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-500 to-blue-400 flex items-center justify-center flex-shrink-0">
-                      <info.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-1">{info.label}</p>
-                      {info.link ? (
-                        <a
-                          href={info.link}
-                          {...(info.link.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                          className="font-semibold text-foreground hover:text-purple-500 transition-colors"
-                        >
-                          {info.value}
-                        </a>
-                      ) : (
-                        <p className="font-semibold text-foreground">{info.value}</p>
+        <form
+          ref={formRef}
+          onSubmit={handleSubmit}
+          className="lg:col-span-7 rounded-2xl border border-border bg-card p-6 md:p-10 space-y-6 animate-fade-in-up"
+          style={{ animationDelay: "0.1s" }}
+        >
+          <div className="grid md:grid-cols-2 gap-5">
+            <div>
+              <label htmlFor="from_name" className={label}>Nome</label>
+              <Input id="from_name" required name="from_name" autoComplete="name" value={formData.from_name} onChange={(e) => set("from_name")(e.target.value)} placeholder="Seu nome" className={field} />
+            </div>
+            <div>
+              <label htmlFor="user_email" className={label}>Email</label>
+              <Input id="user_email" required name="user_email" type="email" autoComplete="email" value={formData.user_email} onChange={(e) => set("user_email")(e.target.value)} placeholder="voce@empresa.com" className={field} />
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-5">
+            <div>
+              <label htmlFor="user_phone" className={label}>
+                WhatsApp <span className="text-muted-foreground font-normal">(opcional)</span>
+              </label>
+              <Input id="user_phone" name="user_phone" type="tel" autoComplete="tel" value={formData.user_phone} onChange={(e) => set("user_phone")(e.target.value)} placeholder="(54) 90000-0000" className={field} />
+            </div>
+            <div>
+              <label htmlFor="budget" className={label}>
+                Orçamento <span className="text-muted-foreground font-normal">(opcional)</span>
+              </label>
+              <input type="hidden" name="budget" value={formData.budget} />
+              {/* modal={false}: não trava a rolagem, então a barra lateral não some e nada pula ao abrir */}
+              <DropdownMenu modal={false}>
+                <DropdownMenuTrigger
+                  id="budget"
+                  className="group flex w-full h-12 items-center justify-between rounded-md border border-input bg-background px-3 text-base transition-colors hover:border-foreground/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 data-[state=open]:border-purple-500"
+                >
+                  <span className={formData.budget ? "text-foreground" : "text-muted-foreground"}>{formData.budget || "Selecione"}</span>
+                  <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="start"
+                  sideOffset={6}
+                  className="w-[var(--radix-dropdown-menu-trigger-width)] rounded-xl border-border bg-popover p-1.5 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)]"
+                >
+                  {budgets.map((b) => (
+                    <DropdownMenuItem
+                      key={b}
+                      onSelect={() => set("budget")(b)}
+                      className={cn(
+                        "flex items-center justify-between rounded-lg px-3 py-2.5 text-[15px] cursor-pointer focus:bg-accent",
+                        formData.budget === b && "text-foreground font-medium",
                       )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="glass p-8 rounded-2xl">
-              <h4 className="font-bold text-lg mb-4">Por que escolher a FASCODE?</h4>
-              <ul className="space-y-3">
-                {["Resposta em até 24h", "Orçamento transparente", "Equipe especializada", "Suporte contínuo", "Garantia de qualidade"].map((benefit, index) => (
-                  <li key={index} className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-blue-400" />
-                    <span className="text-foreground/80">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
+                    >
+                      {b}
+                      {formData.budget === b && <Check className="w-4 h-4 text-purple-500" />}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
 
-          {/* COLUNA 2: FORMULÁRIO COM AS FUNCIONALIDADES DO EMAILJS */}
-          <div className="animate-fade-in-up delay-200">
-            <form ref={formRef} onSubmit={handleSubmit} className="glass p-8 rounded-2xl space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Nome *</label>
-                  <Input
+          <fieldset>
+            <legend className={label}>O que você precisa?</legend>
+            <div className="flex flex-wrap gap-2">
+              {projectTypes.map((t) => (
+                <label key={t} className="cursor-pointer">
+                  {/* Radio nativo: entra no sendForm e o required funciona sem JS extra */}
+                  <input
+                    type="radio"
+                    name="project_type"
+                    value={t}
                     required
-                    name="from_name"
-                    value={formData.from_name}
-                    onChange={(e) => setFormData({ ...formData, from_name: e.target.value })}
-                    placeholder="Seu nome completo"
-                    className="bg-background/50"
+                    checked={formData.project_type === t}
+                    onChange={() => set("project_type")(t)}
+                    className="peer sr-only"
                   />
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Email *</label>
-                  <Input
-                    required
-                    name="user_email"
-                    type="email"
-                    value={formData.user_email}
-                    onChange={(e) => setFormData({ ...formData, user_email: e.target.value })}
-                    placeholder="seu@email.com"
-                    className="bg-background/50"
-                  />
-                </div>
-              </div>
+                  <span className="inline-flex items-center h-10 px-4 rounded-full border border-input text-sm text-foreground/85 transition-colors hover:border-foreground/40 peer-checked:border-purple-500 peer-checked:bg-purple-500/15 peer-checked:text-foreground peer-focus-visible:ring-2 peer-focus-visible:ring-purple-500">
+                    {t}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
 
-              <div>
-                <label className="text-sm font-medium mb-2 block">Telefone</label>
-                <Input
-                  name="user_phone"
-                  value={formData.user_phone}
-                  onChange={(e) => setFormData({ ...formData, user_phone: e.target.value })}
-                  placeholder="(54) 90000-0000"
-                  className="bg-background/50"
-                />
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Tipo de Projeto *</label>
-                  <input type="hidden" name="project_type" value={formData.project_type} />
-                  <Select
-                    required
-                    value={formData.project_type}
-                    onValueChange={(value) => setFormData({ ...formData, project_type: value })}
-                  >
-                    <SelectTrigger className="bg-background/50">
-                      <SelectValue placeholder="Selecione" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="site">Site Institucional</SelectItem>
-                      <SelectItem value="ecommerce">E-commerce</SelectItem>
-                      <SelectItem value="webapp">WebApp / SaaS</SelectItem>
-                      <SelectItem value="automation">Automação</SelectItem>
-                      <SelectItem value="maintenance">Manutenção</SelectItem>
-                      <SelectItem value="other">Outro</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Orçamento Aproximado</label>
-                  <input type="hidden" name="budget" value={formData.budget} />
-                  <Select
-                    value={formData.budget}
-                    onValueChange={(value) => setFormData({ ...formData, budget: value })}
-                  >
-                    <SelectTrigger className="bg-background/50">
-                      <SelectValue placeholder="Selecione" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="5k-10k">R$ 5K - 10K</SelectItem>
-                      <SelectItem value="10k-20k">R$ 10K - 20K</SelectItem>
-                      <SelectItem value="20k-50k">R$ 20K - 50K</SelectItem>
-                      <SelectItem value="50k+">R$ 50K+</SelectItem>
-                      <SelectItem value="discuss">Prefiro discutir</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
-              <div>
-                <label className="text-sm font-medium mb-2 block">Mensagem *</label>
-                <Textarea
-                  required
-                  name="message"
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="Conte-nos sobre seu projeto..."
-                  rows={6}
-                  className="bg-background/50 resize-none"
-                />
-              </div>
-
-              <Button type="submit" disabled={isLoading} className="w-full btn-hero" size="lg">
-                {isLoading ? "Enviando..." : (
-                  <>
-                    Enviar Mensagem
-                    <Send className="ml-2 w-5 h-5" />
-                  </>
-                )}
-              </Button>
-
-              <p className="text-xs text-muted-foreground text-center">
-                Ao enviar, você concorda com nossa política de privacidade
-              </p>
-            </form>
+          <div>
+            <label htmlFor="message" className={label}>Conte sobre o projeto</label>
+            <Textarea
+              id="message"
+              required
+              name="message"
+              value={formData.message}
+              onChange={(e) => set("message")(e.target.value)}
+              placeholder="O que sua empresa faz e qual problema quer resolver"
+              rows={5}
+              className="text-base bg-background resize-none focus-visible:ring-purple-500 focus-visible:ring-offset-0"
+            />
           </div>
-        </div>
+
+          <Button type="submit" disabled={isLoading} className="w-full" size="lg">
+            {isLoading ? "Enviando..." : (
+              <>
+                Enviar mensagem
+                <Send />
+              </>
+            )}
+          </Button>
+        </form>
       </div>
-
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,hsl(var(--blue-400)/0.09),transparent_65%)] pointer-events-none" />
     </section>
   );
 };

@@ -99,7 +99,7 @@ Este projeto foi desenvolvido para a FASCODE.
 
 - **Email:** contato@fascode.com.br
 - **WhatsApp:** +55 (54) 99626-7250
-- **Website:** [fascode.com.br]([https://fascode.com.br](https://fascode-visionary-build.lovable.app/))
+- **Website:** [fascode.com.br](https://fascode.com.br)
 
 ---
 

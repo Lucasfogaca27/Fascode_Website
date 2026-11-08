@@ -1,181 +1,144 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Globe, Linkedin, Mail } from "lucide-react";
 
-const TeamSection = () => {
-  const team = [
-    {
-      name: "Victor Seifert",
-      role: "Founder / Innovation Manager",
-      isFounder: true,
-      bio: "Inovação através do design. Especialista em criar experiências de usuário excepcionais e arquiteturas frontend que escalam com o amanhã.",
-      avatar: "VS",
-      social: {
-        linkedin: "https://www.linkedin.com/in/victor-matheus-seifert/",
-        github: "https://github.com/Mathzss",
-        email: "seifertvictor71@gmail.com",
-      },
+type Member = {
+  name: string;
+  role: string;
+  bio: string;
+  founder?: boolean;
+  // Todos opcionais: só aparece o ícone do que estiver preenchido.
+  // A foto vem do GitHub; sem github, mostra as iniciais.
+  social: { github?: string; linkedin?: string; email?: string; website?: string };
+};
+
+const team: Member[] = [
+  {
+    name: "Victor Seifert",
+    role: "Frontend e inovação",
+    bio: "Interfaces rápidas e fáceis de usar, do protótipo ao produto.",
+    founder: true,
+    social: {
+      github: "https://github.com/Mathzss",
+      linkedin: "https://www.linkedin.com/in/victor-matheus-seifert/",
+      email: "seifertvictor71@gmail.com",
     },
-    {
-      name: "Lucas Fogaça",
-      role: "Founder / Technology Manager",
-      isFounder: true,
-      bio: "Tecnologia de alta performance. Arquiteto de soluções backend robustas e infraestruturas preparadas para o crescimento.",
-      avatar: "LF",
-      social: {
-        linkedin: "https://www.linkedin.com/in/lucas-foga%C3%A7a-de-aguiar/",
-        github: "https://github.com/Lucasfogaca27",
-        email: "f.lucasaguiar@hotmail.com",
-      },
+  },
+  {
+    name: "Lucas Fogaça",
+    role: "Apps e backend",
+    bio: "Aplicativos e APIs que aguentam o crescimento do negócio.",
+    founder: true,
+    social: {
+      github: "https://github.com/Lucasfogaca27",
+      linkedin: "https://www.linkedin.com/in/lucas-foga%C3%A7a-de-aguiar/",
+      email: "f.lucasaguiar@hotmail.com",
     },
-    {
-      name: "Felipe Flor",
-      role: "Founder / Commercial Manager",
-      isFounder: true,
-      bio: "Conexão e conversão. Designer visionário focado em interfaces que encantam o usuário e geram resultados reais para o negócio.",
-      avatar: "FF",
-      social: {
-        linkedin: "https://www.linkedin.com/in/felipe-fl%C3%B4r-a5b338267/",
-        github: "https://github.com/FelipeMFlor",
-        email: "fm6848445@gmail.com",
-      },
+  },
+  {
+    name: "Felipe Flor",
+    role: "Comercial, design e fullstack",
+    bio: "Entende o problema do cliente e leva até o produto, do layout ao código.",
+    founder: true,
+    social: {
+      github: "https://github.com/FelipeMFlor",
+      linkedin: "https://www.linkedin.com/in/felipe-fl%C3%B4r-a5b338267/",
+      email: "fm6848445@gmail.com",
     },
-    {
-      name: "Lucas Silva",
-      role: "Senior Developer",
-      isFounder: false,
-      bio: "Desenvolvedor full-stack sênior com expertise em soluções complexas e integradas.",
-      avatar: "LS",
-      social: {
-        linkedin: "",
-        github: "https://github.com/sh-lucas",
-        email: "",
-      },
+  },
+  {
+    name: "Lucas Schwalm Silva",
+    role: "DevOps e backend",
+    bio: "Infraestrutura, deploy e backend para o sistema ficar no ar e rápido.",
+    social: {
+      github: "https://github.com/sh-lucas",
+      email: "fascode@sh-lucas.dev",
+      website: "https://sh-lucas.dev",
     },
-  ];
+  },
+];
 
-  return (
-    <section id="team" className="section-padding relative overflow-hidden">
-      <div className="container-custom relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in-up">
-          <span className="kicker">04 — Equipe</span>
-          <h2 className="text-section font-bold mb-4">
-            Nossa <span className="gradient-text">Equipe</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Profissionais apaixonados por tecnologia e resultados
-          </p>
-        </div>
+const initials = (name: string) =>
+  name
+    .split(" ")
+    .map((p) => p[0])
+    .slice(0, 2)
+    .join("");
 
-        {/* Team Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {team.map((member, index) => (
-            <div
-              key={index}
-              className="group relative animate-fade-in-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              {/* Card */}
-              <div className="glass p-6 rounded-2xl hover:-translate-y-2 transition-all duration-300 hover:shadow-card text-center">
-                {/* Founder Badge */}
-                {member.isFounder && (
-                  <div className="absolute top-4 right-4">
-                    <div className="glass-strong px-3 py-1 rounded-full">
-                      <span className="text-xs font-semibold gradient-text">
-                        Founder
-                      </span>
-                    </div>
-                  </div>
-                )}
+const SocialLink = ({ href, label, children }: { href: string; label: string; children: React.ReactNode }) => (
+  <a
+    href={href}
+    {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+    aria-label={label}
+    className="w-9 h-9 rounded-lg border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-purple-500 transition-colors"
+  >
+    {children}
+  </a>
+);
 
-                {/* Avatar */}
-                <div className="relative w-32 h-32 mx-auto mb-6">
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-blue-400 rounded-full opacity-20 blur-2xl group-hover:opacity-40 transition-opacity" />
-                  <div className="relative w-full h-full bg-gradient-to-br from-purple-500 to-blue-400 rounded-full flex items-center justify-center overflow-hidden">
-                    <span className="text-4xl font-bold text-white">
-                      {member.avatar}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Name & Role */}
-                <h3 className="text-xl font-bold mb-1 group-hover:gradient-text transition-all">
-                  {member.name}
-                </h3>
-                <p className="text-sm text-purple-500 font-medium mb-3">
-                  {member.role}
-                </p>
-
-                {/* Bio */}
-                <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                  {member.bio}
-                </p>
-
-                {/* Social Links */}
-                <div className="flex items-center justify-center gap-3">
-                  {member.social?.linkedin && (
-                    <a
-                      href={member.social.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-lg glass-strong hover:bg-purple-500 transition-colors flex items-center justify-center"
-                      aria-label={`${member.name} LinkedIn`}
-                    >
-                      <Linkedin className="w-4 h-4 text-muted-foreground hover:text-white transition-colors" />
-                    </a>
-                  )}
-
-                  {member.social?.github && (
-                    <a
-                      href={member.social.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-lg glass-strong hover:bg-purple-500 transition-colors flex items-center justify-center"
-                      aria-label={`${member.name} GitHub`}
-                    >
-                      <Github className="w-4 h-4 text-muted-foreground hover:text-white transition-colors" />
-                    </a>
-                  )}
-
-                  {member.social?.email && (
-                    <a
-                      href={`mailto:${member.social.email}`}
-                      className="w-10 h-10 rounded-lg glass-strong hover:bg-purple-500 transition-colors flex items-center justify-center"
-                      aria-label={`Email para ${member.name}`}
-                    >
-                      <Mail className="w-4 h-4 text-muted-foreground hover:text-white transition-colors" />
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Team Values */}
-        <div className="mt-20 glass p-8 rounded-2xl animate-fade-in-up delay-400">
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-3xl font-bold gradient-text mb-2">15+</div>
-              <p className="text-muted-foreground">
-                Anos de Experiência Combinada
-              </p>
-            </div>
-            <div>
-              <div className="text-3xl font-bold gradient-text mb-2">100%</div>
-              <p className="text-muted-foreground">Dedicação aos Projetos</p>
-            </div>
-            <div>
-              <div className="text-3xl font-bold gradient-text mb-2">24/7</div>
-              <p className="text-muted-foreground">Suporte Disponível</p>
-            </div>
-          </div>
-        </div>
+const TeamSection = () => (
+  <section id="team" className="section-padding">
+    <div className="container-custom">
+      <div className="mb-16 animate-fade-in-up">
+        <span className="kicker">Equipe</span>
+        <h2 className="section-title">Quem faz</h2>
       </div>
 
-      {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,hsl(var(--purple-500)/0.09),transparent_65%)] pointer-events-none" />
-    </section>
-  );
-};
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {team.map((m, i) => (
+          <div
+            key={m.name}
+            className="flex flex-col rounded-2xl border border-border bg-card p-6 transition-colors hover:border-foreground/25 animate-fade-in-up"
+            style={{ animationDelay: `${i * 0.05}s` }}
+          >
+            {m.social.github ? (
+              <img
+                src={`${m.social.github}.png?size=192`}
+                alt={`Foto de ${m.name}`}
+                width={80}
+                height={80}
+                loading="lazy"
+                decoding="async"
+                className="w-20 h-20 rounded-full border border-border bg-muted object-cover mb-5"
+              />
+            ) : (
+              <span className="w-20 h-20 rounded-full bg-muted flex items-center justify-center text-xl font-bold text-muted-foreground mb-5">
+                {initials(m.name)}
+              </span>
+            )}
+
+            <h3 className="text-lg md:text-xl font-bold">{m.name}</h3>
+            <p className="mt-1 text-sm font-medium text-purple-700 dark:text-purple-300">
+              {m.role}
+              {m.founder && <span className="text-muted-foreground font-normal"> · sócio</span>}
+            </p>
+            <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{m.bio}</p>
+
+            <div className="mt-auto pt-6 flex gap-2">
+              {m.social.github && (
+                <SocialLink href={m.social.github} label={`GitHub de ${m.name}`}>
+                  <Github className="w-4 h-4" />
+                </SocialLink>
+              )}
+              {m.social.linkedin && (
+                <SocialLink href={m.social.linkedin} label={`LinkedIn de ${m.name}`}>
+                  <Linkedin className="w-4 h-4" />
+                </SocialLink>
+              )}
+              {m.social.email && (
+                <SocialLink href={`mailto:${m.social.email}`} label={`Email de ${m.name}`}>
+                  <Mail className="w-4 h-4" />
+                </SocialLink>
+              )}
+              {m.social.website && (
+                <SocialLink href={m.social.website} label={`Site de ${m.name}`}>
+                  <Globe className="w-4 h-4" />
+                </SocialLink>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 export default TeamSection;

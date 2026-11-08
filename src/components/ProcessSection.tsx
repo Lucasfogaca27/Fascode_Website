@@ -1,100 +1,60 @@
-import { Lightbulb, Palette, Rocket } from "lucide-react";
+import type { ReactNode } from "react";
+import { Check } from "lucide-react";
 
-const ProcessSection = () => {
-  const steps = [
-    {
-      icon: Lightbulb,
-      title: "Estratégia",
-      description: "Entendemos seu negócio, objetivos e público-alvo para criar uma solução sob medida.",
-      features: ["Pesquisa de mercado", "Análise de concorrência", "Definição de objetivos"],
-    },
-    {
-      icon: Palette,
-      title: "Design",
-      description: "Criamos interfaces intuitivas e atraentes que convertem visitantes em clientes.",
-      features: ["UX/UI Design", "Protótipos interativos", "Design System"],
-    },
-    {
-      icon: Rocket,
-      title: "Entrega",
-      description: "Desenvolvemos, testamos e lançamos sua solução com performance e qualidade máximas.",
-      features: ["Desenvolvimento ágil", "Testes rigorosos", "Deploy e suporte"],
-    },
-  ];
+const steps: { title: ReactNode; text: string; items: string[] }[] = [
+  {
+    title: "Planejamos junto contigo",
+    text: "Uma conversa para entender a operação, o problema e o que já existe. Você sai com escopo, prazo e preço por escrito.",
+    items: ["Diagnóstico com quem vai usar", "Proposta fechada, sem surpresa"],
+  },
+  {
+    title: (
+      <>
+        Construímos para o <em className="not-italic underline decoration-purple-500 decoration-2 underline-offset-4">seu</em> problema
+      </>
+    ),
+    text: "O sistema segue o jeito que a sua equipe já trabalha. Você testa versões reais durante o projeto, não só no final.",
+    items: ["Protótipo antes do código", "Entregas toda semana"],
+  },
+  {
+    title: "Colocamos no ar e cuidamos",
+    text: "Fazemos o deploy, treinamos quem vai usar e seguimos por perto com suporte e manutenção.",
+    items: ["Deploy e treinamento", "Suporte direto com quem desenvolveu"],
+  },
+];
 
-  return (
-    <section id="process" className="section-padding relative overflow-hidden">
-      <div className="container-custom relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in-up">
-          <span className="kicker">02 — Processo</span>
-          <h2 className="text-section font-bold mb-4">
-            Como <span className="gradient-text">Trabalhamos</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Um processo comprovado para entregar resultados excepcionais
-          </p>
-        </div>
-
-        {/* Steps Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {steps.map((step, index) => (
-            <div
-              key={index}
-              className="group relative"
-            >
-              {/* Card */}
-              <div className="glass h-full p-8 rounded-2xl hover:-translate-y-2 transition-all duration-300 hover:shadow-elevated animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.15}s` }}
-              >
-                {/* Icon */}
-                <div className="relative w-16 h-16 mb-6">
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-blue-400 rounded-xl opacity-20 blur-xl group-hover:opacity-40 transition-opacity" />
-                  <div className="relative w-full h-full bg-gradient-to-br from-purple-500 to-blue-400 rounded-xl flex items-center justify-center">
-                    <step.icon className="w-8 h-8 text-white" />
-                  </div>
-                </div>
-
-                {/* Number Badge */}
-                <div className="absolute top-4 right-4 w-10 h-10 rounded-full glass-strong flex items-center justify-center">
-                  <span className="text-2xl font-bold gradient-text">{index + 1}</span>
-                </div>
-
-                {/* Content */}
-                <h3 className="text-2xl font-bold mb-3 group-hover:gradient-text transition-all">
-                  {step.title}
-                </h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  {step.description}
-                </p>
-
-                {/* Features */}
-                <ul className="space-y-2">
-                  {step.features.map((feature, featureIndex) => (
-                    <li
-                      key={featureIndex}
-                      className="flex items-center gap-2 text-sm text-foreground/80"
-                    >
-                      <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-purple-500 to-blue-400" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Connector Line (hidden on mobile) */}
-              {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-16 left-full w-8 h-0.5 bg-gradient-to-r from-purple-500/50 to-transparent -translate-x-4" />
-              )}
-            </div>
-          ))}
-        </div>
+const ProcessSection = () => (
+  <section id="process" className="section-padding">
+    <div className="container-custom">
+      <div className="mb-16 animate-fade-in-up">
+        <span className="kicker">Processo</span>
+        <h2 className="section-title">Como trabalhamos</h2>
+        <p className="section-lead">Do primeiro papo até o sistema rodando, você sabe o que está acontecendo.</p>
       </div>
 
-      {/* Background decoration */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[radial-gradient(circle,hsl(var(--purple-500)/0.09),transparent_65%)] pointer-events-none" />
-    </section>
-  );
-};
+      <ol className="relative grid md:grid-cols-3 gap-12 md:gap-10">
+        {/* Trilha que liga as etapas: vertical no celular, horizontal no desktop */}
+        <span aria-hidden="true" className="absolute left-5 top-5 bottom-5 w-px md:bottom-auto md:right-5 md:w-auto md:h-px bg-gradient-to-b md:bg-gradient-to-r from-purple-500/70 via-border to-border" />
+        {steps.map((s, i) => (
+          <li key={i} className="relative pl-16 md:pl-0 md:pt-16 animate-fade-in-up" style={{ animationDelay: `${i * 0.1}s` }}>
+            <span className="absolute left-0 top-0 w-10 h-10 rounded-full border border-purple-500/60 bg-background flex items-center justify-center font-mono text-sm font-medium">
+              {i + 1}
+            </span>
+            <h3 className="text-xl md:text-2xl font-bold mb-3">{s.title}</h3>
+            <p className="text-muted-foreground leading-relaxed mb-5">{s.text}</p>
+            <ul className="space-y-2">
+              {s.items.map((item) => (
+                <li key={item} className="flex items-center gap-2 text-sm text-foreground/85">
+                  <Check className="w-4 h-4 text-purple-500 shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+);
 
 export default ProcessSection;
